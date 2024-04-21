@@ -1,0 +1,26 @@
+linters:
+  enable-all: true
+  disable:
+    - ireturn  # Not relevant
+    - exhaustruct  # Not relevant
+    - testpackage  # Too strict
+
+    # deprecated linters
+    - deadcode
+    - exhaustivestruct
+    - golint
+    - ifshort
+    - interfacer
+    - maligned
+    - nosnakecase
+    - scopelint
+    - structcheck
+    - varcheck
+
+linters-settings:
+  depguard:
+    rules:
+      main:
+        deny:
+          - pkg: "github.com/instana/testify"
+            desc: not allowed
