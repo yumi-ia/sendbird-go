@@ -48,6 +48,7 @@ func (c *client) do(ctx context.Context, method, path string, obj any, resp any)
 
 	url := c.baseURL
 	url.Path += path
+	url.Path = url.EscapedPath()
 
 	logger = logger.With("url", url.Redacted())
 

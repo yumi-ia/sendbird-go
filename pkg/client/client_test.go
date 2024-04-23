@@ -7,6 +7,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"testing"
 	"time"
 
@@ -36,17 +37,28 @@ func TestGet(t *testing.T) {
 		body         any
 		responseBody any
 		statusCode   int
+		expectedPath string
 		expectedBody string
 		expectedErr  error
 		expectedResp any
 	}{
 		{
-			name: "default",
-			req:  httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
+			name:         "default",
+			req:          httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
+			expectedPath: "/foo/bar",
+		},
+		{
+			name: "needs to encode url",
+			req: &http.Request{
+				Method: http.MethodGet,
+				URL:    &url.URL{Path: "/ !@#$%^&*()_+{}|:<>?"},
+			},
+			expectedPath: "/%20%21@%23$%25%5E&%2A%28%29_+%7B%7D%7C:%3C%3E%3F",
 		},
 		{
 			name:         "with body",
 			req:          httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
+			expectedPath: "/foo/bar",
 			body:         Foo{Foo: "bar"},
 			expectedBody: `{"foo":"bar"}`,
 		},
@@ -54,6 +66,7 @@ func TestGet(t *testing.T) {
 			name:         "with API error",
 			req:          httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
 			statusCode:   http.StatusTeapot,
+			expectedPath: "/foo/bar",
 			responseBody: Error{Code: 418, Message: "I'm a teapot", IsError: true},
 			expectedErr:  ErrAPIDefault,
 		},
@@ -61,6 +74,7 @@ func TestGet(t *testing.T) {
 			name:         "with API response",
 			req:          httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
 			statusCode:   http.StatusOK,
+			expectedPath: "/foo/bar",
 			responseBody: Foo{Foo: "bar"},
 			expectedResp: &Foo{Foo: "bar"},
 		},
@@ -72,7 +86,7 @@ func TestGet(t *testing.T) {
 
 			s := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				assert.Equal(t, test.req.Method, r.Method)
-				assert.Equal(t, test.req.URL.Path, r.URL.Path)
+				assert.Equal(t, test.expectedPath, r.URL.Path)
 
 				if test.expectedBody != "" {
 					defer r.Body.Close()

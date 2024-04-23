@@ -1,4 +1,3 @@
-// This file contains methods for creating a user.
 package user
 
 import (
@@ -7,14 +6,29 @@ import (
 	"fmt"
 )
 
+// https://sendbird.com/docs/chat/platform-api/v3/user/creating-users/create-a-user
+
 // CreateUserRequest is the request to create a user.
 type CreateUserRequest struct {
-	UserID                string                 `json:"user_id"`
-	Nickname              string                 `json:"nickname"`
-	ProfileURL            string                 `json:"profile_url"`
-	IssueAccessToken      bool                   `json:"issue_access_token"`
-	SessionTokenExpiresAt int64                  `json:"session_token_expires_at"`
-	Metadata              map[string]interface{} `json:"metadata"`
+	// UserID is the unique identifier of the user.
+	// Maximum length is 80 characters.
+	UserID string `json:"user_id"`
+	// Nickname is the nickname of the user.
+	// Maximum length is 80 characters.
+	Nickname string `json:"nickname"`
+	// ProfileURL is the URL of the user's profile image.
+	// If left empty, no profile image is set for the user. Maximum length is
+	// 2,048 characters.
+	ProfileURL string `json:"profile_url"`
+
+	// IssueAccessToken determines whether to create an access token for the
+	// user.
+	IssueAccessToken bool `json:"issue_access_token,omitempty"`
+	// Metadata is the custom data of the user.
+	// Specifies a JSON object to store up to five key-value items for additional
+	// user information such as their preference settings. The key must not have
+	// a comma (,), and the value must be a string.
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 }
 
 // CreateUserResponse is the response of the create user request.

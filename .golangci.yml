@@ -6,6 +6,7 @@ linters:
     - testpackage  # Too strict
     - varnamelen  # Not relevant
     - goerr113  # Too strict
+    - lll  # Not relevant
 
     # deprecated linters
     - deadcode

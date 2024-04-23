@@ -8,30 +8,30 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestCreateUser(t *testing.T) {
+func TestUpdateUser(t *testing.T) {
 	t.Parallel()
 
 	client := newClientMock(t)
 	user := NewUser(client)
 
-	createUserRequest := CreateUserRequest{
-		UserID:           "user-id",
-		Nickname:         "nickname",
-		ProfileURL:       "profile-url",
-		IssueAccessToken: true,
-		Metadata: map[string]interface{}{
-			"key": "value",
-		},
+	updateUserRequest := UpdateUserRequest{
+		Nickname:                "nickname",
+		ProfileURL:              "profile-url",
+		IssueAccessToken:        true,
+		IsActive:                true,
+		LastSeenAt:              0,
+		DiscoveryKeys:           []string{"discovery-key"},
+		PreferredLanguages:      []string{"en"},
+		LeaveAllWhenDeactivated: true,
 	}
 
-	createUserResponse := &CreateUserResponse{
+	updateUserResponse := &UpdateUserResponse{
 		UserID:                     "user-id",
 		Nickname:                   "nickname",
 		ProfileURL:                 "profile-url",
 		AccessToken:                "access-token",
 		IsOnline:                   true,
 		IsActive:                   true,
-		IsCreated:                  true,
 		PhoneNumber:                "phone-number",
 		RequireAuthForProfileImage: true,
 		SessionTokens:              []interface{}{},
@@ -44,9 +44,9 @@ func TestCreateUser(t *testing.T) {
 		},
 	}
 
-	client.OnGet("/user", createUserRequest, &CreateUserResponse{}).Return(createUserResponse, nil)
+	client.OnPut("/users/42", updateUserRequest, &UpdateUserResponse{}).Return(updateUserResponse, nil)
 
-	cur, err := user.CreateUser(context.Background(), createUserRequest)
+	cur, err := user.UpdateUser(context.Background(), "42", updateUserRequest)
 	require.NoError(t, err)
-	assert.Equal(t, createUserResponse, cur)
+	assert.Equal(t, updateUserResponse, cur)
 }

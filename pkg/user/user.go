@@ -8,6 +8,7 @@ import (
 
 type User interface {
 	CreateUser(ctx context.Context, createUserRequest CreateUserRequest) (*CreateUserResponse, error)
+	UpdateUser(ctx context.Context, userID string, updateUserRequest UpdateUserRequest) (*UpdateUserResponse, error)
 }
 
 type user struct {
