@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log/slog"
 	"os"
 
@@ -11,9 +10,7 @@ import (
 func main() {
 	handler := slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug})
 	logger := slog.New(handler)
-	client := client.NewClient(
+	_ = client.NewClient(
 		client.WithLogger(logger),
 	)
-
-	fmt.Println(client)
 }
