@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"errors"
 	"fmt"
 )
 
@@ -58,7 +57,7 @@ func (u *user) CreateUser(ctx context.Context, createUserRequest CreateUserReque
 
 	createUserResponse, ok := cur.(*CreateUserResponse)
 	if !ok {
-		return nil, errors.New("failed to cast body to CreateUserResponse")
+		return nil, fmt.Errorf("failed to cast body to CreateUserResponse: %+v", cur)
 	}
 
 	return createUserResponse, nil

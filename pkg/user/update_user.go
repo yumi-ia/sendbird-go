@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"errors"
 	"fmt"
 )
 
@@ -66,12 +65,12 @@ type UpdateUserResponse struct {
 func (u *user) UpdateUser(ctx context.Context, userID string, updateUserRequest UpdateUserRequest) (*UpdateUserResponse, error) {
 	uur, err := u.client.Put(ctx, "/users/"+userID, updateUserRequest, &UpdateUserResponse{})
 	if err != nil {
-		return nil, fmt.Errorf("failed to create user: %w", err)
+		return nil, fmt.Errorf("failed to update user: %w", err)
 	}
 
 	updateUserResponse, ok := uur.(*UpdateUserResponse)
 	if !ok {
-		return nil, errors.New("failed to cast body to CreateUserResponse")
+		return nil, fmt.Errorf("failed to cast body to UpdateUserResponse: %+v", uur)
 	}
 
 	return updateUserResponse, nil
