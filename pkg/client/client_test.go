@@ -1,6 +1,7 @@
 package client
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"io"
@@ -48,14 +49,6 @@ func TestGet(t *testing.T) {
 			expectedPath: "/foo/bar",
 		},
 		{
-			name: "needs to encode url",
-			req: &http.Request{
-				Method: http.MethodGet,
-				URL:    &url.URL{Path: "/ !@#$%^&*()_+{}|:<>?"},
-			},
-			expectedPath: "/%20%21@%23$%25%5E&%2A%28%29_+%7B%7D%7C:%3C%3E%3F",
-		},
-		{
 			name:         "with body",
 			req:          httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
 			expectedPath: "/foo/bar",
@@ -67,7 +60,7 @@ func TestGet(t *testing.T) {
 			req:          httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
 			statusCode:   http.StatusTeapot,
 			expectedPath: "/foo/bar",
-			responseBody: Error{Code: 418, Message: "I'm a teapot", IsError: true},
+			responseBody: Error{Code: 418, Message: "I'm a teapot", Error: true},
 			expectedErr:  ErrAPIDefault,
 		},
 		{
@@ -209,4 +202,60 @@ func TestDelete(t *testing.T) {
 
 	_, err := c.Delete(context.Background(), "/foo/bar", nil, nil)
 	require.NoError(t, err)
+}
+
+func TestGetURL(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name        string
+		req         *http.Request
+		expectedURL string
+		expectedLog string
+	}{
+		{
+			name: "needs to encode url",
+			req: &http.Request{
+				Method: http.MethodGet,
+				URL:    &url.URL{Path: "/ !@#$%^&*()_+{}|:<>?"},
+			},
+			expectedURL: "https://example.com/%2520%2521@%2523$%2525%255E&%252A%2528%2529_+%257B%257D%257C:%253C%253E%253F",
+			expectedLog: "failed to parse path",
+		},
+		{
+			name: "with query params",
+			req: &http.Request{
+				Method: http.MethodGet,
+				URL:    &url.URL{Path: "/foo?bar=baz"},
+			},
+			expectedURL: "https://example.com/foo?bar=baz",
+		},
+		{
+			name: "with query params to encode",
+			req: &http.Request{
+				Method: http.MethodGet,
+				URL:    &url.URL{Path: "/foo?bar=baz&b!z=b>z"},
+			},
+			expectedURL: "https://example.com/foo?b%21z=b%3Ez&bar=baz",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			t.Parallel()
+
+			var b bytes.Buffer
+			logger := slog.New(slog.NewTextHandler(&b, &slog.HandlerOptions{Level: slog.LevelDebug}))
+
+			c := &client{}
+			c.SetDefault()
+			c = WithHost("example.com")(c)
+			c = WithPath("")(c)
+			c = WithLogger(logger)(c)
+
+			u := c.getURL(test.req.URL.Path)
+			assert.Equal(t, test.expectedURL, u.String())
+			assert.Contains(t, b.String(), test.expectedLog)
+		})
+	}
 }

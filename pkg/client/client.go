@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 )
 
 // Client is the interface for the client of the sendbird API.
@@ -46,13 +47,11 @@ func (c *client) do(ctx context.Context, method, path string, obj any, resp any)
 		reqBody = bytes.NewReader(m)
 	}
 
-	url := c.baseURL
-	url.Path += path
-	url.Path = url.EscapedPath()
+	u := c.getURL(path)
 
-	logger = logger.With("url", url.Redacted())
+	logger = logger.With("url", u.Redacted())
 
-	req, err := http.NewRequestWithContext(ctx, method, url.String(), reqBody)
+	req, err := http.NewRequestWithContext(ctx, method, u.String(), reqBody)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
 	}
@@ -104,4 +103,19 @@ func (c *client) Put(ctx context.Context, path string, obj any, resp any) (any, 
 // Delete sends a DELETE request to the sendbird API.
 func (c *client) Delete(ctx context.Context, path string, obj any, resp any) (any, error) {
 	return c.do(ctx, http.MethodDelete, path, obj, resp)
+}
+
+func (c *client) getURL(path string) *url.URL {
+	uu, err := url.Parse(path)
+	if err != nil {
+		c.logger.Warn("failed to parse path", "path", path)
+		uu = &url.URL{Path: path}
+	}
+
+	u := c.baseURL
+	u.Path += uu.Path
+	u.Path = u.EscapedPath()
+	u.RawQuery = uu.Query().Encode()
+
+	return u
 }

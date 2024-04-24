@@ -1,6 +1,8 @@
 package client
 
 import (
+	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -8,6 +10,33 @@ import (
 
 	"github.com/stretchr/testify/assert"
 )
+
+func ExampleHandleError() {
+	c := &client{}
+	c.SetDefault()
+
+	body := `{"message": "\"User\" not found.", "code": 400201, "error": true}`
+	err := c.handleError(http.StatusTeapot, strings.NewReader(body))
+	fmt.Println(errors.Is(err, ErrResourceNotFound)) // true
+	fmt.Println(errors.Is(err, ErrAPIBadRequest))    // true
+	fmt.Println(errors.Is(err, ErrAPIForbidden))     // false
+
+	// Output:
+	// true
+	// true
+	// false
+}
+
+func TestHandleError_notAnError(t *testing.T) {
+	t.Parallel()
+
+	c := &client{}
+	c.SetDefault()
+
+	body := `{"code":418,"message":"I'm a teapot","error":false}`
+	err := c.handleError(http.StatusOK, strings.NewReader(body))
+	assert.NoError(t, err)
+}
 
 func TestHandleError(t *testing.T) {
 	t.Parallel()
@@ -18,10 +47,6 @@ func TestHandleError(t *testing.T) {
 		body       string
 		err        error
 	}{
-		{
-			name: "not an error",
-			body: `{"code":418,"message":"I'm a teapot","error":false}`,
-		},
 		{
 			name: "no body",
 			err:  io.EOF,
@@ -38,6 +63,30 @@ func TestHandleError(t *testing.T) {
 			body:       `{"code":418,"message":"I'm a teapot","error":true}`,
 			err:        ErrAPIBadRequest,
 		},
+		{
+			name:       "InternalError is an ErrAPIInternalServerError",
+			statusCode: http.StatusBadRequest,
+			body:       `{"code":500901,"message":"InternalError","error":true}`,
+			err:        ErrAPIInternalServerError,
+		},
+		{
+			name:       "InternalError",
+			statusCode: http.StatusBadRequest,
+			body:       `{"code":500901,"message":"InternalError","error":true}`,
+			err:        ErrInternalError,
+		},
+		{
+			name:       "User not found",
+			statusCode: http.StatusBadRequest,
+			body:       `{"message": "\"User\" not found.", "code": 400201, "error": true}`,
+			err:        ErrResourceNotFound,
+		},
+		{
+			name:       "User not found is also an ErrAPIBadRequest",
+			statusCode: http.StatusBadRequest,
+			body:       `{"message": "\"User\" not found.", "code": 400201, "error": true}`,
+			err:        ErrAPIBadRequest,
+		},
 	}
 
 	for _, test := range tests {
@@ -48,11 +97,7 @@ func TestHandleError(t *testing.T) {
 			c.SetDefault()
 
 			err := c.handleError(test.statusCode, strings.NewReader(test.body))
-			if err != nil {
-				assert.ErrorIs(t, err, test.err)
-			} else {
-				assert.NoError(t, err)
-			}
+			assert.ErrorIs(t, err, test.err)
 		})
 	}
 }
