@@ -1,6 +1,7 @@
 //go:build tools
 // +build tools
 
+// Package tools manages tool dependencies, like golangci-lint, via go.mod.
 package tools
 
 // Manage tool dependencies via go.mod.
