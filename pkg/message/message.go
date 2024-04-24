@@ -1,3 +1,6 @@
+// Package message package provides the interface for the message service.
+// It provides the methods to interact with the sendbird API.
+// See https://sendbird.com/docs/chat/platform-api/v3/message/message-overview.
 package message
 
 import (

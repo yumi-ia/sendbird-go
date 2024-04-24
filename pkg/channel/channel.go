@@ -1,3 +1,6 @@
+// Package channel package provides the interface for the channel service.
+// It provides the methods to interact with the sendbird API.
+// See https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview.
 package channel
 
 import (

@@ -8,9 +8,62 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/tomMoulard/sendbird-go/build.yml?branch=main)](https://github.com/tomMoulard/sendbird-go/actions?query=workflow%3Abuild+branch%3Amain)
 [![Go Report Card](https://goreportcard.com/badge/github.com/tomMoulard/sendbird-go)](https://goreportcard.com/report/github.com/tomMoulard/sendbird-go)
 
+Yet another go client for the [Sendbird](https://sendbird.com) chat API.
+
 ⭐ `Star` this repository if you find it valuable and worth maintaining.
 
 👁 `Watch` this repository to get notified about new releases, issues, etc.
+
+## User Guide
+
+### Installation
+
+```bash
+go get github.com/tomMoulard/sendbird-go
+```
+
+### Usage
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "log"
+    "os"
+
+    "github.com/tomMoulard/sendbird-go/pkg/client"
+    "github.com/tomMoulard/sendbird-go/pkg/user"
+)
+
+func main() {
+    opts := []client.Option{
+        client.WithAPPID(os.Getenv("SENDBIRD_APP_ID")),
+        client.WithAPIKey(os.Getenv("SENDBIRD_API_KEY")),
+    }
+    client := client.NewClient(opts...)
+
+    // To create a user
+    userClient := user.NewUser(client)
+
+    u := user.CreateUserRequest{
+        UserID: "user-id",
+        Nickname: "nickname",
+    }
+    createdUser, err := userClient.Create(context.Background(), u)
+    if err != nil {
+        if errors.Is(err, client.ErrTooManyRequests) {
+            log.Fatalf("rate limit exceeded: %v", err)
+            return
+        }
+        log.Fatalf("failed to create user: %v", err)
+    }
+    fmt.Printf("created user: %v\n", createdUser)
+}
+```
+
+See available methods in the corresponding package documentation.
 
 ## Build
 

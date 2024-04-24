@@ -1,4 +1,4 @@
-package strings
+package strconv
 
 import (
 	"fmt"
@@ -7,14 +7,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func ExampleSliceToCSV() {
+func ExampleFormatSliceToCSV() {
 	s := []string{"foo", "bar", "baz"}
-	csv := SliceToCSV(s)
+	csv := FormatSliceToCSV(s)
 	fmt.Println(csv)
 	// Output: foo,bar,baz
 }
 
-func TestSliceToCSVStrings(t *testing.T) {
+func TestFormatSliceToCSV(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
@@ -43,7 +43,7 @@ func TestSliceToCSVStrings(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
 
-			actual := SliceToCSV(test.s)
+			actual := FormatSliceToCSV(test.s)
 			assert.Equal(t, test.expected, actual)
 		})
 	}

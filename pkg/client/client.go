@@ -1,4 +1,5 @@
-// This package is for the client of the sendbird API
+// Package client package provides the interface for the client of the sendbird
+// API. It provides the methods to call the sendbird API.
 package client
 
 import (

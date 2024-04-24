@@ -96,3 +96,13 @@ func TestWithAPIToken(t *testing.T) {
 	assert.Equal(t, "api-token", client.header.Get("api-token"))
 	assert.Len(t, client.header, 2)
 }
+
+func TestWithAPPID(t *testing.T) {
+	t.Parallel()
+
+	client := &client{}
+	client.SetDefault()
+
+	client = WithAPPID("api-id")(client)
+	assert.Equal(t, "api-api-id.sendbird.com", client.baseURL.Host)
+}

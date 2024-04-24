@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/tomMoulard/sendbird-go/pkg/utils/strings"
+	strconvSlice "github.com/tomMoulard/sendbird-go/pkg/utils/strconv"
 )
 
 // https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/list-messages
@@ -157,7 +157,7 @@ func listMessagesRequestToMap(lmr ListMessagesRequest) map[string]string {
 	}
 
 	if len(lmr.SenderIDs) > 0 {
-		m["sender_ids"] = strings.SliceToCSV(lmr.SenderIDs)
+		m["sender_ids"] = strconvSlice.FormatSliceToCSV(lmr.SenderIDs)
 	}
 
 	if lmr.OperatorFilter != "" {

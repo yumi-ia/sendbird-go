@@ -1,3 +1,6 @@
+// Package user package provides the interface for the user service.
+// It provides the methods to interact with the sendbird API.
+// See https://sendbird.com/docs/chat/platform-api/v3/user/user-overview.
 package user
 
 import (

@@ -102,3 +102,12 @@ func WithAPIToken(apiToken string) Option {
 		return client
 	}
 }
+
+// WithAPPID is the option for the app id of the client.
+func WithAPPID(appID string) Option {
+	return func(client *client) *client {
+		client.baseURL.Host = fmt.Sprintf("api-%s.sendbird.com", appID)
+
+		return client
+	}
+}

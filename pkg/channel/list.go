@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/tomMoulard/sendbird-go/pkg/utils/strings"
+	strconvStlice "github.com/tomMoulard/sendbird-go/pkg/utils/strconv"
 )
 
 // https://sendbird.com/docs/chat/platform-api/v3/channel/listing-channels-in-an-application/list-group-channels
@@ -311,7 +311,7 @@ func ListChannelRequestToMap(lcr ListChannelRequest) map[string]string {
 	}
 
 	if len(lcr.ChannelURLs) > 0 {
-		m["channel_urls"] = strings.SliceToCSV(lcr.ChannelURLs)
+		m["channel_urls"] = strconvStlice.FormatSliceToCSV(lcr.ChannelURLs)
 	}
 
 	if lcr.Name != "" {
@@ -351,7 +351,7 @@ func ListChannelRequestToMap(lcr ListChannelRequest) map[string]string {
 	}
 
 	if len(lcr.MetadataValues) > 0 {
-		m["metadata_values"] = strings.SliceToCSV(lcr.MetadataValues)
+		m["metadata_values"] = strconvStlice.FormatSliceToCSV(lcr.MetadataValues)
 	}
 
 	if lcr.MetadataValueStartswith != "" {
@@ -363,7 +363,7 @@ func ListChannelRequestToMap(lcr ListChannelRequest) map[string]string {
 	}
 
 	if len(lcr.MetacounterValues) > 0 {
-		m["metacounter_values"] = strings.SliceToCSV(lcr.MetacounterValues)
+		m["metacounter_values"] = strconvStlice.FormatSliceToCSV(lcr.MetacounterValues)
 	}
 
 	if lcr.MetacounterValuesGT != "" {
