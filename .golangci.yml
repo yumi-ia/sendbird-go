@@ -94,3 +94,51 @@ issues:
     - path: '(.+)_test.go'
       linters:
         - funlen
+    - path: 'pkg/client/errors_test.go'
+      text: 'tests: ExampleHandleError refers to unknown identifier: HandleError'
+      linters:
+        - govet
+    - path: 'pkg/client/errors_test.go'
+      text: 'Duplicate words \(true\) found'
+      linters:
+        - dupword
+    - path: 'pkg/message/send_message.go'
+      text: "got 'mentioned_user_ids' want 'mention_user_i_ds'"
+      linters:
+        - tagliatelle
+    - path: 'pkg/message/list_messages.go'
+      text: "Function 'listMessagesRequestToMap' is too long"
+      linters:
+        - funlen
+    - path: 'pkg/message/list_messages.go'
+      text: "calculated cyclomatic complexity for function listMessagesRequestToMap"
+      linters:
+        - cyclop
+    - path: 'pkg/channel/create.go'
+      text: "got 'operator_ids' want 'operator_i_ds'"
+      linters:
+        - tagliatelle
+    - path: 'pkg/channel/create.go'
+      text: "got 'user_ids' want 'user_i_ds'"
+      linters:
+        - tagliatelle
+    - path: 'pkg/channel/update.go'
+      text: "got 'operator_ids' want 'operator_i_ds'"
+      linters:
+        - tagliatelle
+    - path: 'pkg/channel/list.go'
+      text: "Function 'ListChannelRequestToMap' has too many statements"
+      linters:
+        - funlen
+    - path: 'pkg/channel/list.go'
+      text: 'cognitive complexity \d+ of func \`ListChannelRequestToMap\` is high'
+      linters:
+        - gocognit
+    - path: 'pkg/channel/list.go'
+      text: 'cyclomatic complexity \d+ of func `ListChannelRequestToMap` is high'
+      linters:
+        - gocyclo
+    - path: 'pkg/channel/list.go'
+      text: 'calculated cyclomatic complexity for function ListChannelRequestToMap'
+      linters:
+        - cyclop
