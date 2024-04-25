@@ -1,9 +1,9 @@
 package channel
 
 const (
-	DistrincModeAll         string = "all"
-	DistrincModeDistinct    string = "distinct"
-	DistrincModeNonDistinct string = "nondistinct"
+	DistincModeAll         string = "all"
+	DistincModeDistinct    string = "distinct"
+	DistincModeNonDistinct string = "nondistinct"
 )
 
 const (

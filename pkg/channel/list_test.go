@@ -68,7 +68,7 @@ func TestListGroupChannels(t *testing.T) {
 	listChannelsRequest := ListGroupChannelRequest{
 		Token:                               "token",
 		Limit:                               ptr(42),
-		DistrinctMode:                       DistrincModeAll,
+		DistinctMode:                        DistincModeAll,
 		PublicMode:                          PublicModeAll,
 		SuperMode:                           SuperModeAll,
 		CreatedAfter:                        ptr(43),
