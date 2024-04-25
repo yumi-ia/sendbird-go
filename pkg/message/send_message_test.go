@@ -39,6 +39,7 @@ func TestSendMessage(t *testing.T) {
 		MentionUserIDs:      []string{"mention-user-id"},
 		IsSilent:            ptr(true),
 		MarkAsRead:          ptr(true),
+		SortedMetaArray:     []MetaArray{{Key: "key1", Value: "value1"}, {Key: "key2", Value: "value2"}},
 		CreatedAt:           42,
 		PollID:              42,
 		IncludePollDetails:  ptr(true),

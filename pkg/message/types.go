@@ -85,3 +85,8 @@ type MessageResource struct {
 	UpdatedAt            int           `json:"updated_at"`
 	IsAppleCriticalAlert bool          `json:"is_apple_critical_alert"`
 }
+
+type MetaArray struct {
+	Key   string   `json:"key"`
+	Value []string `json:"value"`
+}

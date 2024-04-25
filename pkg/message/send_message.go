@@ -53,6 +53,13 @@ type SendMessageRequest struct {
 	// If set to false, the sender's unread_count and read_receipt remain
 	// unchanged after the message is sent. (Default: true)
 	MarkAsRead *bool `json:"mark_as_read,omitempty"`
+	// SortedMetaArray specifies an array of JSON objects consisting of
+	// key-values items that store additional message information to be used for
+	// classification and filtering. Items are saved and returned in the order
+	// they've been specified. More details on what can be stored in this field
+	// are available here:
+	// https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-manage-channel-information-3-information-types
+	SortedMetaArray []MetaArray `json:"sorted_meta_array,omitempty"`
 	// CreatedAt specifies the time when the message was sent in Unix
 	// milliseconds format.
 	CreatedAt int64 `json:"created_at,omitempty"`
