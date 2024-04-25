@@ -18,7 +18,7 @@ type ListMessagesRequest struct {
 	// be specified in your query URL to retrieve a list. It fetches messages
 	// that were sent prior to and after the specified message_ts and the default
 	// value for both prev_limit and next_limit is 15.
-	MessageTS int
+	MessageTS int64
 	// MessageID specifies the unique ID of the message to be the reference point
 	// of the query. Either this or the message_ts parameter above should be
 	// specified in your query URL to retrieve a list. It fetches messages that
@@ -132,7 +132,7 @@ type ListMessagesResponse struct {
 func listMessagesRequestToMap(lmr ListMessagesRequest) map[string]string {
 	m := make(map[string]string)
 
-	m["message_ts"] = strconv.Itoa(lmr.MessageTS)
+	m["message_ts"] = strconv.FormatInt(lmr.MessageTS, 10)
 	m["message_id"] = strconv.Itoa(lmr.MessageID)
 
 	// Optional fields

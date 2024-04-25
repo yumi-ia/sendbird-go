@@ -12,7 +12,7 @@ type GetSessionTokenRequest struct {
 	// ExpiresAt specifies the expiration time of the new session token in Unix
 	// milliseconds format. By default, the expiration time of a session token is
 	// seven days from the timestamp when the token was issued.
-	ExpiresAt int `json:"expires_at"`
+	ExpiresAt int64 `json:"expires_at"`
 }
 
 // GetSessionTokenResponse is the response to get a session token.
