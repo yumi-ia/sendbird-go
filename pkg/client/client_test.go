@@ -29,7 +29,9 @@ func TestGet(t *testing.T) {
 	t.Parallel()
 
 	type Foo struct {
-		Foo string `json:"foo"`
+		Foo  string `json:"foo"`
+		Baz  string `json:"baz,omitempty"`
+		Foos []Foo  `json:"foos,omitempty"`
 	}
 
 	tests := []struct {
@@ -70,6 +72,22 @@ func TestGet(t *testing.T) {
 			expectedPath: "/foo/bar",
 			responseBody: Foo{Foo: "bar"},
 			expectedResp: &Foo{Foo: "bar"},
+		},
+		{
+			name:         "with optionnal fields",
+			req:          httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
+			statusCode:   http.StatusOK,
+			expectedPath: "/foo/bar",
+			responseBody: Foo{
+				Foo:  "bar",
+				Baz:  "baz",
+				Foos: []Foo{{Foo: "foo"}},
+			},
+			expectedResp: &Foo{
+				Foo:  "bar",
+				Baz:  "baz",
+				Foos: []Foo{{Foo: "foo"}},
+			},
 		},
 	}
 
