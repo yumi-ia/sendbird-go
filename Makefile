@@ -58,6 +58,7 @@ spell: ## misspell
 lint: ## golangci-lint
 	$(call print-target)
 	yamllint .
+	goreleaser check
 	golangci-lint run
 
 .PHONY: check
