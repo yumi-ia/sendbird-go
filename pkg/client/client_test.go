@@ -25,7 +25,7 @@ func TestNewClient(t *testing.T) {
 	assert.Equal(t, slog.Default(), cClient.logger)
 }
 
-func TestGet(t *testing.T) {
+func TestDo(t *testing.T) {
 	t.Parallel()
 
 	type Foo struct {
@@ -124,17 +124,20 @@ func TestGet(t *testing.T) {
 				Timeout: time.Second, // to make the test fail faster, might be flaky
 			}
 
-			c := NewClient(
-				WithURL(s.URL),
-				WithHTTPClient(httpClient),
-			)
+			u, err := url.Parse(s.URL)
+			require.NoError(t, err)
+
+			c := &client{}
+			c.SetDefault()
+			c.baseURL = u
+			c.httpClient = httpClient
 
 			var body any
 			if test.expectedResp != nil {
 				body = new(Foo)
 			}
 
-			b, err := c.Get(test.req.Context(), test.req.URL.Path, test.body, body)
+			b, err := c.do(test.req.Context(), test.req.Method, test.req.URL.Path, test.body, body)
 			if test.expectedErr != nil {
 				assert.ErrorIs(t, err, test.expectedErr)
 			} else {
@@ -148,6 +151,30 @@ func TestGet(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestGET(t *testing.T) {
+	t.Parallel()
+
+	s := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, http.MethodGet, r.Method)
+		assert.Equal(t, "/foo/bar", r.URL.Path)
+
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer s.Close()
+
+	httpClient := &http.Client{
+		Timeout: time.Second, // to make the test fail faster, might be flaky
+	}
+
+	c := NewClient(
+		WithURL(s.URL),
+		WithHTTPClient(httpClient),
+	)
+
+	_, err := c.Get(context.Background(), "/foo/bar", nil, nil)
+	require.NoError(t, err)
 }
 
 func TestPOST(t *testing.T) {
