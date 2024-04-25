@@ -11,6 +11,7 @@ release:
   github: {}
   prerelease: auto
   mode: append
+  footer: "**Full Changelog**: https://github.com/tomMoulard/sendbird-go/compare/{{ .PrevTag }}...{{ .Tag }}"
 changelog:
   use: github
   sort: asc
