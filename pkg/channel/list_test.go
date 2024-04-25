@@ -32,12 +32,12 @@ func TestListGroupChannels(t *testing.T) {
 	url += "&created_after=43"
 	url += "&created_before=44"
 	url += "&custom_type_starts_with=custom-type-starts-with"
-	url += "&custom_types=custom-types"
+	url += "&custom_types=custom-types1%2Ccustom-types2"
 	url += "&distinct_mode=all"
 	url += "&include_sorted_metaarray_in_last_message=true"
 	url += "&limit=42"
-	url += "&members_exactly_in=members-exactly-in"
-	url += "&members_include_in=members-include-in"
+	url += "&members_exactly_in=members-exactly-in1%2Cmembers-exactly-in2"
+	url += "&members_include_in=members-include-in1%2Cmembers-include-in2"
 	url += "&members_nickname=members-nickname"
 	url += "&members_nickname_contains=members-nickname-contains"
 	url += "&metacounter_key=metacounter-key"
@@ -81,14 +81,14 @@ func TestListGroupChannels(t *testing.T) {
 		ShowFrozen:                          ptr(true),
 		Order:                               OrderChronological,
 		MetadataOrderKey:                    "metadata-order-key",
-		CustomTypes:                         "custom-types",
+		CustomTypes:                         []string{"custom-types1", "custom-types2"},
 		CustomTypeStartsWith:                "custom-type-starts-with",
 		ChannelURLs:                         []string{"channel-url1", "channel-url2"},
 		Name:                                "name",
 		NameContains:                        "name-contains",
 		NameStartswith:                      "name-starts-with",
-		MembersExactlyIn:                    "members-exactly-in",
-		MembersIncludeIn:                    "members-include-in",
+		MembersExactlyIn:                    []string{"members-exactly-in1", "members-exactly-in2"},
+		MembersIncludeIn:                    []string{"members-include-in1", "members-include-in2"},
 		QueryType:                           QueryTypeAnd,
 		MembersNickname:                     "members-nickname",
 		MembersNicknameContains:             "members-nickname-contains",

@@ -60,9 +60,9 @@ type ListMessagesRequest struct {
 	// MESG, FILE, and ADMM. If not specified, all messages are retrieved.
 	// Optional.
 	MessageType string
-	// CustomTypes specifies a comma-separated string of one or more custom
-	// message types to retrieve. The value set to this parameter can serve as a
-	// filter as follows:
+	// CustomTypes specifies a list of one or more custom message types to
+	// retrieve. The value set to this parameter can serve as a filter as
+	// follows:
 	// - A string of specific custom types: Messages with the corresponding
 	// custom types are returned.
 	// - Empty: Messages whose custom_type property is
@@ -70,7 +70,7 @@ type ListMessagesRequest struct {
 	// - An asterisk (`*`): All messages are returned regardless of their
 	// custom_type.
 	// Optional. (default '*')
-	CustomTypes *string
+	CustomTypes []string
 	// IncludingRemoved determines whether to include messages removed from the
 	// channel in the results.
 	// Optional. (Default: false)
@@ -168,8 +168,8 @@ func listMessagesRequestToMap(lmr ListMessagesRequest) map[string]string {
 		m["message_type"] = lmr.MessageType
 	}
 
-	if lmr.CustomTypes != nil {
-		m["custom_types"] = *lmr.CustomTypes
+	if len(lmr.CustomTypes) > 0 {
+		m["custom_types"] = strconvSlice.FormatSliceToCSV(lmr.CustomTypes)
 	}
 
 	if lmr.IncludingRemoved != nil {

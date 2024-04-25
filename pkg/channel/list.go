@@ -103,11 +103,11 @@ type ListGroupChannelRequest struct {
 	// alphabetically sorted by the value of the item specified by the key.
 	// Optional.
 	MetadataOrderKey string
-	// CustomTypes specifies a comma-separated string of one or more custom types
-	// to filter group channels. URL encoding each type is recommended. If not
-	// specified, all channels are returned, regardless of their custom type.
+	// CustomTypes specifies a list of one or more custom types to filter group
+	// channels. URL encoding each type is recommended. If not specified, all
+	// channels are returned, regardless of their custom type.
 	// Optional.
-	CustomTypes string
+	CustomTypes []string
 	// CustomTypeStartsWith dearches for group channels with the custom type
 	// which starts with the specified value.
 	// Optional.
@@ -128,19 +128,17 @@ type ListGroupChannelRequest struct {
 	// Optional.
 	NameStartswith string
 	// MembersExactlyIn searches for group channels with all the specified users
-	// as members. The parameter value should consist of user IDs separated by
-	// commas.
+	// as members.
 	// Only user IDs that match those of existing users are used for channel
 	// search.
 	// Optional.
-	MembersExactlyIn string
+	MembersExactlyIn []string
 	// MembersIncludeIn searches for group channels that include one or more
-	// users as members among the specified users. The value should consist of
-	// user IDs separated by commas or %2C. You can specify up to 60 user IDs.
-	// Only user IDs that match those of existing users are used for channel
+	// users as members among the specified users. You can specify up to 60 user
+	// IDs. Only user IDs that match those of existing users are used for channel
 	// search.
 	// Optional.
-	MembersIncludeIn string
+	MembersIncludeIn []string
 	// QueryType specifies a logical condition applied to the members_include_in
 	// parameter. Acceptable values are either AND or OR. For example, if you
 	// specify three members, A, B, and C, in members_include_in, the value of
@@ -302,8 +300,8 @@ func listChannelRequestToMap(lcr ListGroupChannelRequest) map[string]string {
 		m["metadata_order_key"] = lcr.MetadataOrderKey
 	}
 
-	if lcr.CustomTypes != "" {
-		m["custom_types"] = lcr.CustomTypes
+	if len(lcr.CustomTypes) > 0 {
+		m["custom_types"] = strconvSlice.FormatSliceToCSV(lcr.CustomTypes)
 	}
 
 	if lcr.CustomTypeStartsWith != "" {
@@ -326,12 +324,12 @@ func listChannelRequestToMap(lcr ListGroupChannelRequest) map[string]string {
 		m["name_startswith"] = lcr.NameStartswith
 	}
 
-	if lcr.MembersExactlyIn != "" {
-		m["members_exactly_in"] = lcr.MembersExactlyIn
+	if len(lcr.MembersExactlyIn) > 0 {
+		m["members_exactly_in"] = strconvSlice.FormatSliceToCSV(lcr.MembersExactlyIn)
 	}
 
-	if lcr.MembersIncludeIn != "" {
-		m["members_include_in"] = lcr.MembersIncludeIn
+	if len(lcr.MembersIncludeIn) > 0 {
+		m["members_include_in"] = strconvSlice.FormatSliceToCSV(lcr.MembersIncludeIn)
 	}
 
 	if lcr.QueryType != "" {

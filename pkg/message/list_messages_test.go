@@ -47,7 +47,7 @@ func TestListMessages(t *testing.T) {
 		SenderIDs:                  []string{"47", "48"},
 		OperatorFilter:             OperatorFilterAll,
 		MessageType:                MessageTypeText,
-		CustomTypes:                ptr("*"),
+		CustomTypes:                []string{"*"},
 		IncludingRemoved:           ptr(true),
 		IncludeParentMessageInfo:   ptr(true),
 		IncludeThreadInfo:          ptr(true),
