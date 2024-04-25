@@ -24,8 +24,8 @@ clean: ## remove files created during build pipeline
 .PHONY: mod
 mod: ## go mod tidy
 	$(call print-target)
-	go mod tidy
-	cd tools && go mod tidy
+	go mod tidy -x
+	cd tools && go mod tidy -x
 
 .PHONY: inst
 inst: ## go install tools
