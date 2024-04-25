@@ -26,12 +26,11 @@ changelog:
       order: 999
   filters:
     exclude:
-      - typo
-      - chore
-      - test
-      - "^chore"
-      - "merge conflict"
+      - Merge branch
       - Merge pull request
       - Merge remote-tracking branch
-      - Merge branch
+      - chore
       - go mod tidy
+      - merge conflict
+      - test
+      - typo
