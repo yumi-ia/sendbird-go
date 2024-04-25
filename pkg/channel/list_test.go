@@ -112,7 +112,7 @@ func TestListGroupChannels(t *testing.T) {
 
 	client.OnGet(url, nil, &ListGroupChannelResponse{}).Return(listChannelsResponse, nil)
 
-	cur, err := channel.ListGroupChannels(context.Background(), "url", listChannelsRequest)
+	cur, err := channel.ListGroupChannels(context.Background(), listChannelsRequest)
 	require.NoError(t, err)
 	assert.Equal(t, listChannelsResponse, cur)
 }

@@ -387,7 +387,7 @@ func listChannelRequestToMap(lcr ListGroupChannelRequest) map[string]string {
 	return m
 }
 
-func (c *channel) ListGroupChannels(ctx context.Context, channelURL string, listChannelRequest ListGroupChannelRequest) (*ListGroupChannelResponse, error) {
+func (c *channel) ListGroupChannels(ctx context.Context, listChannelRequest ListGroupChannelRequest) (*ListGroupChannelResponse, error) {
 	u := &url.URL{
 		Path: "/group_channels",
 	}

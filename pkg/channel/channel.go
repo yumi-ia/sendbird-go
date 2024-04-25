@@ -12,7 +12,7 @@ import (
 type Channel interface {
 	CreateGroupChannel(ctx context.Context, createChannelRequest CreateGroupChannelRequest) (*CreateGroupChannelResponse, error)
 	UpdateGroupChannel(ctx context.Context, channelURL string, updateChannelRequest UpdateGroupChannelRequest) (*UpdateGroupChannelResponse, error)
-	ListGroupChannels(ctx context.Context, channelURL string, listChannelRequest ListGroupChannelRequest) (*ListGroupChannelResponse, error)
+	ListGroupChannels(ctx context.Context, listChannelRequest ListGroupChannelRequest) (*ListGroupChannelResponse, error)
 }
 
 type channel struct {
