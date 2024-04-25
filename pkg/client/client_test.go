@@ -277,3 +277,30 @@ func TestGetURL(t *testing.T) {
 		})
 	}
 }
+
+func TestLeak(t *testing.T) {
+	t.Parallel()
+
+	c := &client{}
+	c.SetDefault()
+
+	for range 100 {
+		u := c.getURL("/foo/bar")
+		assert.Equal(t, "https:///v3/foo/bar", u.String())
+	}
+
+	s := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, http.MethodGet, r.Method)
+		assert.Equal(t, "/baz/buz", r.URL.Path)
+	}))
+	defer s.Close()
+
+	var err error
+	c.baseURL, err = url.Parse(s.URL)
+	require.NoError(t, err)
+
+	for range 100 {
+		_, err := c.do(context.Background(), http.MethodGet, "/baz/buz", nil, nil)
+		assert.NoError(t, err)
+	}
+}

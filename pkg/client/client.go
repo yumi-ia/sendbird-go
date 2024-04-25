@@ -113,8 +113,11 @@ func (c *client) getURL(path string) *url.URL {
 		uu = &url.URL{Path: path}
 	}
 
-	u := c.baseURL
-	u.Path += uu.Path
+	u := &url.URL{
+		Scheme: c.baseURL.Scheme,
+		Host:   c.baseURL.Host,
+		Path:   c.baseURL.Path + uu.Path,
+	}
 	u.Path = u.EscapedPath()
 	u.RawQuery = uu.Query().Encode()
 
