@@ -60,7 +60,7 @@ type UpdateUserResponse struct {
 }
 
 // UpdateUserRequest is the request to update a user.
-// https://sendbird.com/docs/chat/platform-api/v3/user/managing-users/update-a-user
+// See https://sendbird.com/docs/chat/platform-api/v3/user/managing-users/update-a-user
 func (u *user) UpdateUser(ctx context.Context, userID string, updateUserRequest UpdateUserRequest) (*UpdateUserResponse, error) {
 	uur, err := u.client.Put(ctx, "/users/"+userID, updateUserRequest, &UpdateUserResponse{})
 	if err != nil {
