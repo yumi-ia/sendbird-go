@@ -50,7 +50,7 @@ type CreateUserResponse struct {
 // CreateUser creates a user.
 // See https://sendbird.com/docs/chat/platform-api/v3/user/creating-users/create-a-user
 func (u *user) CreateUser(ctx context.Context, createUserRequest CreateUserRequest) (*CreateUserResponse, error) {
-	cur, err := u.client.Get(ctx, "/user", createUserRequest, &CreateUserResponse{})
+	cur, err := u.client.Post(ctx, "/users", createUserRequest, &CreateUserResponse{})
 	if err != nil {
 		return nil, fmt.Errorf("failed to create user: %w", err)
 	}

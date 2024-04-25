@@ -44,7 +44,7 @@ func TestCreateUser(t *testing.T) {
 		},
 	}
 
-	client.OnGet("/user", createUserRequest, &CreateUserResponse{}).Return(createUserResponse, nil)
+	client.OnPost("/users", createUserRequest, &CreateUserResponse{}).Return(createUserResponse, nil)
 
 	cur, err := user.CreateUser(context.Background(), createUserRequest)
 	require.NoError(t, err)
