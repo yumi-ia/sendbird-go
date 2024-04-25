@@ -5,8 +5,6 @@ import (
 	"fmt"
 )
 
-// https://sendbird.com/docs/chat/platform-api/v3/user/managing-session-tokens/issue-a-session-token
-
 // GetSessionTokenRequest is the request to get a session token.
 type GetSessionTokenRequest struct {
 	// ExpiresAt specifies the expiration time of the new session token in Unix
@@ -23,6 +21,8 @@ type GetSessionTokenResponse struct {
 	ExpiresAt int `json:"expires_at"`
 }
 
+// GetSessionToken retrieves a session token for a user.
+// https://sendbird.com/docs/chat/platform-api/v3/user/managing-session-tokens/issue-a-session-token
 func (u *user) GetSessionToken(ctx context.Context, userID string, getSessionTokenRequest GetSessionTokenRequest) (*GetSessionTokenResponse, error) {
 	path := fmt.Sprintf("/users/%s/token", userID)
 

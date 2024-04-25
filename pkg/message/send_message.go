@@ -5,8 +5,6 @@ import (
 	"fmt"
 )
 
-// https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/send-a-message
-
 // SendMessageRequest is the request to send a message.
 type SendMessageRequest struct {
 	// MessageType specifies the type of the message. The value of MESG
@@ -98,8 +96,9 @@ type SendMessageResponse MessageResource
 
 // SendMessage sends a message to a channel.
 // channelType specifies the type of the channel, one of
-// messages.ChannelTypeOpen, or messages.ChannelTypeGroup.
-// channelURL specifies the URL of the channel.
+// messages.ChannelTypeOpen, or messages.ChannelTypeGroup. channelURL specifies
+// the URL of the channel.
+// See https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/send-a-message
 func (m *message) SendMessage(ctx context.Context, channelType, channelURL string, sendMessageRequest SendMessageRequest) (*SendMessageResponse, error) {
 	path := fmt.Sprintf("/%s/%s/messages", channelType, channelURL)
 

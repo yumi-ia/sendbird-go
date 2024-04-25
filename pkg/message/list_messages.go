@@ -9,8 +9,6 @@ import (
 	strconvSlice "github.com/tomMoulard/sendbird-go/pkg/utils/strconv"
 )
 
-// https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/list-messages
-
 // ListMessagesRequest is the request to list messages.
 type ListMessagesRequest struct {
 	// MessageTS s pecifies the timestamp to be the reference point of the query
@@ -211,6 +209,8 @@ func listMessagesRequestToMap(lmr ListMessagesRequest) map[string]string {
 	return m
 }
 
+// ListMessages retrieves a list of messages in a channel.
+// See https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/list-messages
 func (m *message) ListMessages(ctx context.Context, channelType, channelURL string, listMessagesRequest ListMessagesRequest) (*ListMessagesResponse, error) {
 	u, err := url.Parse(fmt.Sprintf("/%s/%s/messages", channelType, channelURL))
 	if err != nil {

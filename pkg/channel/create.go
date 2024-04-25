@@ -5,8 +5,6 @@ import (
 	"fmt"
 )
 
-// https://sendbird.com/docs/chat/platform-api/v3/channel/creating-a-channel/create-a-group-channel
-
 // CreateGroupChannelRequest is the request to create a channel.
 type CreateGroupChannelRequest struct {
 	// UserIDs specifies an array of one or more IDs of users to invite to the
@@ -103,6 +101,8 @@ type CreateGroupChannelRequest struct {
 // CreateGroupChannelResponse is the response of the create channel request.
 type CreateGroupChannelResponse ChannelResource
 
+// CreateGroupChannel creates a group/super channel.
+// https://sendbird.com/docs/chat/platform-api/v3/channel/creating-a-channel/create-a-group-channel
 func (c *channel) CreateGroupChannel(ctx context.Context, createChannelRequest CreateGroupChannelRequest) (*CreateGroupChannelResponse, error) {
 	cgcr, err := c.client.Post(ctx, "/group_channels", createChannelRequest, &CreateGroupChannelResponse{})
 	if err != nil {

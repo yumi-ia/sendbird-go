@@ -5,8 +5,6 @@ import (
 	"fmt"
 )
 
-// https://sendbird.com/docs/chat/platform-api/v3/user/managing-unread-count/get-number-of-unread-messages
-
 // GetUnreadMessagesCountRequest is the request to get the number of unread
 // messages.
 type GetUnreadMessagesCountRequest struct {
@@ -24,6 +22,8 @@ type GetUnreadMessagesCountResponse struct {
 	UnreadCount int `json:"unread_count"`
 }
 
+// GetUnreadMessagesCount retrieves the number of unread messages of a user.
+// https://sendbird.com/docs/chat/platform-api/v3/user/managing-unread-count/get-number-of-unread-messages
 func (u *user) GetUnreadMessagesCount(ctx context.Context, userID string, getUnreadMessagesCountRequest GetUnreadMessagesCountRequest) (*GetUnreadMessagesCountResponse, error) {
 	path := fmt.Sprintf("/users/%s/unread_message_count", userID)
 

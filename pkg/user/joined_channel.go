@@ -5,8 +5,6 @@ import (
 	"fmt"
 )
 
-// https://sendbird.com/docs/chat/platform-api/v3/user/getting-group-channel-count/get-number-of-channels-by-join-status
-
 const (
 	ModeUnHiddenOnly            string = "unhidden_only"
 	ModeHiddenOnly              string = "hidden_only"
@@ -56,6 +54,8 @@ type GetGroupChannelCountResponse struct {
 	GroupChannelCount int `json:"group_channel_count"`
 }
 
+// GetGroupChannelCount retrieves the number of group channels of a user.
+// https://sendbird.com/docs/chat/platform-api/v3/user/getting-group-channel-count/get-number-of-channels-by-join-status
 func (u *user) GetGroupChannelCount(ctx context.Context, userID string, getGroupChannelCountRequest GetGroupChannelCountRequest) (*GetGroupChannelCountResponse, error) {
 	path := fmt.Sprintf("/users/%s/group_channel_count", userID)
 

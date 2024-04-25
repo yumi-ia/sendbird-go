@@ -5,8 +5,6 @@ import (
 	"fmt"
 )
 
-// https://sendbird.com/docs/chat/platform-api/v3/user/creating-users/create-a-user
-
 // CreateUserRequest is the request to create a user.
 type CreateUserRequest struct {
 	// UserID is the unique identifier of the user.
@@ -49,6 +47,8 @@ type CreateUserResponse struct {
 	Metadata                   map[string]interface{} `json:"metadata"`
 }
 
+// CreateUser creates a user.
+// See https://sendbird.com/docs/chat/platform-api/v3/user/creating-users/create-a-user
 func (u *user) CreateUser(ctx context.Context, createUserRequest CreateUserRequest) (*CreateUserResponse, error) {
 	cur, err := u.client.Get(ctx, "/user", createUserRequest, &CreateUserResponse{})
 	if err != nil {

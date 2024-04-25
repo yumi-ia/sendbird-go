@@ -9,8 +9,6 @@ import (
 	strconvSlice "github.com/tomMoulard/sendbird-go/pkg/utils/strconv"
 )
 
-// https://sendbird.com/docs/chat/platform-api/v3/channel/listing-channels-in-an-application/list-group-channels
-
 // ListGroupChannelRequest is the request to list a channel.
 type ListGroupChannelRequest struct {
 	// Token specifies a page token that indicates the starting index of a chunk
@@ -387,6 +385,8 @@ func listChannelRequestToMap(lcr ListGroupChannelRequest) map[string]string {
 	return m
 }
 
+// ListGroupChannels lists group channels.
+// See https://sendbird.com/docs/chat/platform-api/v3/channel/listing-channels-in-an-application/list-group-channels
 func (c *channel) ListGroupChannels(ctx context.Context, listChannelRequest ListGroupChannelRequest) (*ListGroupChannelResponse, error) {
 	u := &url.URL{
 		Path: "/group_channels",
