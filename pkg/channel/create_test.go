@@ -14,7 +14,7 @@ func TestCreateGroupChannel(t *testing.T) {
 	client := newClientMock(t)
 	channel := NewChannel(client)
 
-	createChannelRequest := CreateChannelRequest{
+	createChannelRequest := CreateGroupChannelRequest{
 		UserIDs:                []string{"42", "43"},
 		Name:                   "name",
 		ChannelURL:             "channel-url",
@@ -32,11 +32,11 @@ func TestCreateGroupChannel(t *testing.T) {
 		BlocSDKUserChannelJoin: true,
 	}
 
-	createChannelResponse := &CreateChannelResponse{
+	createChannelResponse := &CreateGroupChannelResponse{
 		Name: "name",
 	}
 
-	client.OnPost("/group_channels", createChannelRequest, &CreateChannelResponse{}).Return(createChannelResponse, nil)
+	client.OnPost("/group_channels", createChannelRequest, &CreateGroupChannelResponse{}).Return(createChannelResponse, nil)
 
 	cur, err := channel.CreateGroupChannel(context.Background(), createChannelRequest)
 	require.NoError(t, err)

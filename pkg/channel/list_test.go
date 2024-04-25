@@ -65,7 +65,7 @@ func TestListGroupChannels(t *testing.T) {
 	url += "&super_mode=all"
 	url += "&token=token"
 
-	listChannelsRequest := ListChannelRequest{
+	listChannelsRequest := ListGroupChannelRequest{
 		Token:                               "token",
 		Limit:                               ptr(42),
 		DistrinctMode:                       DistrincModeAll,
@@ -104,13 +104,13 @@ func TestListGroupChannels(t *testing.T) {
 		IncludeSortedMetaarrayInLastMessage: ptr(true),
 	}
 
-	listChannelsResponse := &ListChannelResponse{
+	listChannelsResponse := &ListGroupChannelResponse{
 		Channels: []ChannelResource{{
 			Name: "channel-name",
 		}},
 	}
 
-	client.OnGet(url, nil, &ListChannelResponse{}).Return(listChannelsResponse, nil)
+	client.OnGet(url, nil, &ListGroupChannelResponse{}).Return(listChannelsResponse, nil)
 
 	cur, err := channel.ListGroupChannels(context.Background(), "url", listChannelsRequest)
 	require.NoError(t, err)

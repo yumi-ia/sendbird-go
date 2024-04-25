@@ -10,9 +10,9 @@ import (
 )
 
 type Channel interface {
-	CreateGroupChannel(ctx context.Context, createChannelRequest CreateChannelRequest) (*CreateChannelResponse, error)
-	UpdateGroupChannel(ctx context.Context, channelURL string, updateChannelRequest UpdateChannelRequest) (*UpdateChannelResponse, error)
-	ListGroupChannels(ctx context.Context, channelURL string, listChannelRequest ListChannelRequest) (*ListChannelResponse, error)
+	CreateGroupChannel(ctx context.Context, createChannelRequest CreateGroupChannelRequest) (*CreateGroupChannelResponse, error)
+	UpdateGroupChannel(ctx context.Context, channelURL string, updateChannelRequest UpdateGroupChannelRequest) (*UpdateGroupChannelResponse, error)
+	ListGroupChannels(ctx context.Context, channelURL string, listChannelRequest ListGroupChannelRequest) (*ListGroupChannelResponse, error)
 }
 
 type channel struct {

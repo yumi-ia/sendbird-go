@@ -14,7 +14,7 @@ func TestUpdateGroupChannel(t *testing.T) {
 	client := newClientMock(t)
 	channel := NewChannel(client)
 
-	updateChannelRequest := UpdateChannelRequest{
+	updateChannelRequest := UpdateGroupChannelRequest{
 		Name:        "channel-name",
 		CoverURL:    "cover-url",
 		CustomType:  "custom-type",
@@ -26,11 +26,11 @@ func TestUpdateGroupChannel(t *testing.T) {
 		OperatorIDs: []string{"42", "43"},
 	}
 
-	updateChannelResponse := &UpdateChannelResponse{
+	updateChannelResponse := &UpdateGroupChannelResponse{
 		Name: "channel-name",
 	}
 
-	client.OnPut("/group_channels/channel-url", updateChannelRequest, &UpdateChannelResponse{}).Return(updateChannelResponse, nil)
+	client.OnPut("/group_channels/channel-url", updateChannelRequest, &UpdateGroupChannelResponse{}).Return(updateChannelResponse, nil)
 
 	cur, err := channel.UpdateGroupChannel(context.Background(), "channel-url", updateChannelRequest)
 	require.NoError(t, err)

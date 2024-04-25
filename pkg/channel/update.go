@@ -7,8 +7,8 @@ import (
 
 // https://sendbird.com/docs/chat/platform-api/v3/channel/managing-a-channel/update-a-group-channel
 
-// UpdateChannelRequest is the request to update a channel.
-type UpdateChannelRequest struct {
+// UpdateGroupChannelRequest is the request to update a channel.
+type UpdateGroupChannelRequest struct {
 	// Name specifies the name of the channel or the channel topic. The length is
 	// limited to 191 characters.
 	Name string `json:"name,omitempty"`
@@ -49,18 +49,18 @@ type UpdateChannelRequest struct {
 	OperatorIDs []string `json:"operator_ids,omitempty"`
 }
 
-// UpdateChannelResponse is the response of the update channel request.
-type UpdateChannelResponse ChannelResource
+// UpdateGroupChannelResponse is the response of the update channel request.
+type UpdateGroupChannelResponse ChannelResource
 
-func (c *channel) UpdateGroupChannel(ctx context.Context, channelURL string, updateChannelRequest UpdateChannelRequest) (*UpdateChannelResponse, error) {
-	ccr, err := c.client.Put(ctx, "/group_channels/"+channelURL, updateChannelRequest, &UpdateChannelResponse{})
+func (c *channel) UpdateGroupChannel(ctx context.Context, channelURL string, updateChannelRequest UpdateGroupChannelRequest) (*UpdateGroupChannelResponse, error) {
+	ccr, err := c.client.Put(ctx, "/group_channels/"+channelURL, updateChannelRequest, &UpdateGroupChannelResponse{})
 	if err != nil {
 		return nil, fmt.Errorf("failed to update channel: %w", err)
 	}
 
-	updateChannelResponse, ok := ccr.(*UpdateChannelResponse)
+	updateChannelResponse, ok := ccr.(*UpdateGroupChannelResponse)
 	if !ok {
-		return nil, fmt.Errorf("failed to cast body to UpdateChannelResponse: %+v", ccr)
+		return nil, fmt.Errorf("failed to cast body to UpdateGroupChannelResponse: %+v", ccr)
 	}
 
 	return updateChannelResponse, nil

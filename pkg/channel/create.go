@@ -7,8 +7,8 @@ import (
 
 // https://sendbird.com/docs/chat/platform-api/v3/channel/creating-a-channel/create-a-group-channel
 
-// CreateChannelRequest is the request to create a channel.
-type CreateChannelRequest struct {
+// CreateGroupChannelRequest is the request to create a channel.
+type CreateGroupChannelRequest struct {
 	// UserIDs specifies an array of one or more IDs of users to invite to the
 	// channel. Up to 100 users can be invited at a time.
 	UserIDs []string `json:"user_ids"`
@@ -100,18 +100,18 @@ type CreateChannelRequest struct {
 	BlocSDKUserChannelJoin bool `json:"bloc_sdk_user_channel_join,omitempty"`
 }
 
-// CreateChannelResponse is the response of the create channel request.
-type CreateChannelResponse ChannelResource
+// CreateGroupChannelResponse is the response of the create channel request.
+type CreateGroupChannelResponse ChannelResource
 
-func (c *channel) CreateGroupChannel(ctx context.Context, createChannelRequest CreateChannelRequest) (*CreateChannelResponse, error) {
-	ccr, err := c.client.Post(ctx, "/group_channels", createChannelRequest, &CreateChannelResponse{})
+func (c *channel) CreateGroupChannel(ctx context.Context, createChannelRequest CreateGroupChannelRequest) (*CreateGroupChannelResponse, error) {
+	cgcr, err := c.client.Post(ctx, "/group_channels", createChannelRequest, &CreateGroupChannelResponse{})
 	if err != nil {
 		return nil, fmt.Errorf("failed to create channel: %w", err)
 	}
 
-	createChannelResponse, ok := ccr.(*CreateChannelResponse)
+	createChannelResponse, ok := cgcr.(*CreateGroupChannelResponse)
 	if !ok {
-		return nil, fmt.Errorf("failed to cast body to CreateChannelResponse: %+v", ccr)
+		return nil, fmt.Errorf("failed to cast body to CreateChannelResponse: %+v", cgcr)
 	}
 
 	return createChannelResponse, nil

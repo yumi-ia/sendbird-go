@@ -11,8 +11,8 @@ import (
 
 // https://sendbird.com/docs/chat/platform-api/v3/channel/listing-channels-in-an-application/list-group-channels
 
-// ListChannelRequest is the request to list a channel.
-type ListChannelRequest struct {
+// ListGroupChannelRequest is the request to list a channel.
+type ListGroupChannelRequest struct {
 	// Token specifies a page token that indicates the starting index of a chunk
 	// of results. If not specified, the index is set as 0.
 	// Optional.
@@ -229,8 +229,8 @@ type ListChannelRequest struct {
 	IncludeSortedMetaarrayInLastMessage *bool
 }
 
-// ListChannelResponse is the response of the list channel request.
-type ListChannelResponse struct {
+// ListGroupChannelResponse is the response of the list channel request.
+type ListGroupChannelResponse struct {
 	// Channels is the list of group channel objects that match the specified
 	// optional parameters.
 	Channels []ChannelResource `json:"channels"`
@@ -239,7 +239,7 @@ type ListChannelResponse struct {
 	Next string `json:"next"`
 }
 
-func ListChannelRequestToMap(lcr ListChannelRequest) map[string]string {
+func listChannelRequestToMap(lcr ListGroupChannelRequest) map[string]string {
 	m := make(map[string]string)
 
 	if lcr.Token != "" {
@@ -389,26 +389,26 @@ func ListChannelRequestToMap(lcr ListChannelRequest) map[string]string {
 	return m
 }
 
-func (c *channel) ListGroupChannels(ctx context.Context, channelURL string, listChannelRequest ListChannelRequest) (*ListChannelResponse, error) {
+func (c *channel) ListGroupChannels(ctx context.Context, channelURL string, listChannelRequest ListGroupChannelRequest) (*ListGroupChannelResponse, error) {
 	u := &url.URL{
 		Path: "/group_channels",
 	}
 
 	query := u.Query()
-	for k, v := range ListChannelRequestToMap(listChannelRequest) {
+	for k, v := range listChannelRequestToMap(listChannelRequest) {
 		query.Set(k, v)
 	}
 
 	u.RawQuery = query.Encode()
 
-	ccr, err := c.client.Get(ctx, u.String(), nil, &ListChannelResponse{})
+	lgcr, err := c.client.Get(ctx, u.String(), nil, &ListGroupChannelResponse{})
 	if err != nil {
 		return nil, fmt.Errorf("failed to list channel: %w", err)
 	}
 
-	listChannelResponse, ok := ccr.(*ListChannelResponse)
+	listChannelResponse, ok := lgcr.(*ListGroupChannelResponse)
 	if !ok {
-		return nil, fmt.Errorf("failed to cast body to ListChannelResponse: %+v", ccr)
+		return nil, fmt.Errorf("failed to cast body to ListGroupChannelResponse: %+v", lgcr)
 	}
 
 	return listChannelResponse, nil
