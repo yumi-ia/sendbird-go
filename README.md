@@ -40,7 +40,7 @@ import (
 func main() {
     opts := []client.Option{
         client.WithAPPID(os.Getenv("SENDBIRD_APP_ID")),
-        client.WithAPIKey(os.Getenv("SENDBIRD_API_KEY")),
+        client.WithAPIToken(os.Getenv("SENDBIRD_API_KEY")),
     }
     client := client.NewClient(opts...)
 
