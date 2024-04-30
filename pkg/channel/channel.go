@@ -14,6 +14,8 @@ type Channel interface {
 	UpdateGroupChannel(ctx context.Context, channelURL string, updateChannelRequest UpdateGroupChannelRequest) (*UpdateGroupChannelResponse, error)
 	ListGroupChannels(ctx context.Context, listChannelRequest ListGroupChannelRequest) (*ListGroupChannelResponse, error)
 	MarkAsRead(ctx context.Context, channelURL, userID string) error
+	StartTyping(ctx context.Context, channelURL string, userIDs []string) error
+	StopTyping(ctx context.Context, channelURL string, userIDs []string) error
 }
 
 type channel struct {

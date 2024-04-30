@@ -145,3 +145,7 @@ issues:
       text: 'calculated cyclomatic complexity for function ListChannelRequestToMap'
       linters:
         - cyclop
+    - path: 'pkg/channel/typing.go'
+      text: "got 'user_ids' want 'user_i_ds'"
+      linters:
+        - tagliatelle
