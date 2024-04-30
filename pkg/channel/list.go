@@ -140,13 +140,13 @@ type ListGroupChannelRequest struct {
 	// Optional.
 	MembersIncludeIn []string
 	// QueryType specifies a logical condition applied to the members_include_in
-	// parameter. Acceptable values are either AND or OR. For example, if you
-	// specify three members, A, B, and C, in members_include_in, the value of
-	// AND returns all channels that include every one of {A. B, C} as members.
-	// The value of OR returns channels that include {A}, plus those that include
-	// {B}, plus those that include {C}. (Default: AND)
+	// parameter. Acceptable values are either QueryTypeAnd or QueryTypeOr. For
+	// example, if you specify three members, A, B, and C, in members_include_in,
+	// the value of AND returns all channels that include every one of {A. B, C}
+	// as members. The value of OR returns channels that include {A}, plus those
+	// that include {B}, plus those that include {C}. (Default: AND)
 	// Optional.
-	QueryType string
+	QueryType QueryType
 	// MembersNickname searches for group channels with members whose nicknames
 	// match the specified value.
 	// Optional.
@@ -333,7 +333,7 @@ func listChannelRequestToMap(lcr ListGroupChannelRequest) map[string]string {
 	}
 
 	if lcr.QueryType != "" {
-		m["query_type"] = lcr.QueryType
+		m["query_type"] = string(lcr.QueryType)
 	}
 
 	if lcr.MembersNickname != "" {

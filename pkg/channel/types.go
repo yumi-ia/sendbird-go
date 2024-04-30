@@ -33,9 +33,11 @@ const (
 	OrderMetadataValueAlphabetical Order = "metadata_value_alphabetical"
 )
 
+type QueryType string
+
 const (
-	QueryTypeAnd string = "AND"
-	QueryTypeOr  string = "OR"
+	QueryTypeAnd QueryType = "AND"
+	QueryTypeOr  QueryType = "OR"
 )
 
 type CreatedBy struct {
