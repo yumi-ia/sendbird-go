@@ -35,43 +35,48 @@ func TestDo(t *testing.T) {
 	}
 
 	tests := []struct {
-		name         string
-		req          *http.Request
-		body         any
-		responseBody any
-		statusCode   int
-		expectedPath string
-		expectedBody string
-		expectedErr  error
-		expectedResp any
+		name            string
+		req             *http.Request
+		body            any
+		responseBody    any
+		statusCode      int
+		expectedPath    string
+		expectedBody    string
+		expectedErr     error
+		expectedRespFoo assert.BoolAssertionFunc
+		expectedResp    any
 	}{
 		{
-			name:         "default",
-			req:          httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
-			expectedPath: "/foo/bar",
+			name:            "default",
+			req:             httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
+			expectedPath:    "/foo/bar",
+			expectedRespFoo: assert.False,
 		},
 		{
-			name:         "with body",
-			req:          httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
-			expectedPath: "/foo/bar",
-			body:         Foo{Foo: "bar"},
-			expectedBody: `{"foo":"bar"}`,
+			name:            "with body",
+			req:             httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
+			expectedPath:    "/foo/bar",
+			body:            Foo{Foo: "bar"},
+			expectedBody:    `{"foo":"bar"}`,
+			expectedRespFoo: assert.False,
 		},
 		{
-			name:         "with API error",
-			req:          httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
-			statusCode:   http.StatusTeapot,
-			expectedPath: "/foo/bar",
-			responseBody: Error{Code: 418, Message: "I'm a teapot", Error: true},
-			expectedErr:  ErrAPIDefault,
+			name:            "with API error",
+			req:             httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
+			statusCode:      http.StatusTeapot,
+			expectedPath:    "/foo/bar",
+			responseBody:    Error{Code: 418, Message: "I'm a teapot", Error: true},
+			expectedErr:     ErrAPIDefault,
+			expectedRespFoo: assert.False,
 		},
 		{
-			name:         "with API response",
-			req:          httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
-			statusCode:   http.StatusOK,
-			expectedPath: "/foo/bar",
-			responseBody: Foo{Foo: "bar"},
-			expectedResp: &Foo{Foo: "bar"},
+			name:            "with API response",
+			req:             httptest.NewRequest(http.MethodGet, "http://example.com/foo/bar", nil),
+			statusCode:      http.StatusOK,
+			expectedPath:    "/foo/bar",
+			responseBody:    Foo{Foo: "bar"},
+			expectedRespFoo: assert.True,
+			expectedResp:    Foo{Foo: "bar"},
 		},
 		{
 			name:         "with optionnal fields",
@@ -83,7 +88,8 @@ func TestDo(t *testing.T) {
 				Baz:  "baz",
 				Foos: []Foo{{Foo: "foo"}},
 			},
-			expectedResp: &Foo{
+			expectedRespFoo: assert.True,
+			expectedResp: Foo{
 				Foo:  "bar",
 				Baz:  "baz",
 				Foos: []Foo{{Foo: "foo"}},
@@ -144,10 +150,11 @@ func TestDo(t *testing.T) {
 				assert.NoError(t, err)
 			}
 
-			if test.expectedResp != nil {
-				bb, ok := b.(*Foo)
-				require.True(t, ok)
-				assert.Equal(t, test.expectedResp, bb)
+			bb, ok := b.(*Foo)
+			test.expectedRespFoo(t, ok)
+
+			if bb != nil {
+				assert.Equal(t, test.expectedResp, *bb)
 			}
 		})
 	}
