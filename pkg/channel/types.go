@@ -24,11 +24,13 @@ const (
 	SuperModeNonSuper SuperMode = "nonsuper"
 )
 
+type Order string
+
 const (
-	OrderChronological             string = "chronological"
-	OrderLatestLastMessage         string = "latest_last_message"
-	OderChannelNameAlphabetical    string = "channel_name_alphabetical"
-	OrderMetadataValueAlphabetical string = "metadata_value_alphabetical"
+	OrderChronological             Order = "chronological"
+	OrderLatestLastMessage         Order = "latest_last_message"
+	OrderChannelNameAlphabetical   Order = "channel_name_alphabetical"
+	OrderMetadataValueAlphabetical Order = "metadata_value_alphabetical"
 )
 
 const (

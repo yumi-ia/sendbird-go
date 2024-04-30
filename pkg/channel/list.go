@@ -86,17 +86,18 @@ type ListGroupChannelRequest struct {
 	ShowFrozen *bool
 	// Order specifies the method to sort a list of results. Acceptable values
 	// are the following:
-	// - chronological (default): sorts by time of channel creation, from most to
-	// least recent.
-	// - latest_last_message: sorts by the time of the last message in the
+	// - OrderChronological (default): sorts by time of channel creation, from
+	// most to least recent.
+	// - OrderLatestLastMessage: sorts by the time of the last message in the
 	// channel, from most to least recent. This is available only when user_id is
 	// specified.
-	// - channel_name_alphabetical: sorts by channel name in alphabetical order.
-	// - metadata_value_alphabetical: sorts by a value of metadata in
+	// - OrderChannelNameAlphabetical: sorts by channel name in alphabetical
+	// order.
+	// - OrderMetadataValueAlphabetical: sorts by a value of metadata in
 	// alphabetical order. This is available only when the metadata_order_key
 	// parameter is specified.
 	// Optional.
-	Order string
+	Order Order
 	// MetadataOrderKey specifies the key of an item in metadata. When a value of
 	// the order parameter is set to metadata_value_alphabetical, the results are
 	// alphabetically sorted by the value of the item specified by the key.
@@ -292,7 +293,7 @@ func listChannelRequestToMap(lcr ListGroupChannelRequest) map[string]string {
 	}
 
 	if lcr.Order != "" {
-		m["order"] = lcr.Order
+		m["order"] = string(lcr.Order)
 	}
 
 	if lcr.MetadataOrderKey != "" {
