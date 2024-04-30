@@ -31,12 +31,12 @@ type SendMessageRequest struct {
 	PushMessageTemplate string `json:"push_message_template,omitempty"`
 	// MentionType specifies whether to mention specific users or all users in
 	// the channel. Acceptable values are users and channel.
-	// If set to users, up to ten users in the mentioned_user_ids property below
-	// are notified of the mention.
-	// If set to channel, up to ten users in the channel are notified of the
-	// mention.
-	// (Default: users)
-	MentionType string `json:"mention_type,omitempty"`
+	// If set to MentionTypeUsers, up to ten users in the mentioned_user_ids
+	// property below are notified of the mention.
+	// If set to MentionTypeChannels, up to ten users in the channel are notified
+	// of the mention.
+	// (Default: MentionTypeUsers)
+	MentionType MentionType `json:"mention_type,omitempty"`
 	// MentionUserIDs specifies an array of IDs of the users to mention in the
 	// message. This property is used only when mention_type is users.
 	MentionUserIDs []string `json:"mentioned_user_ids,omitempty"`

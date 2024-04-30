@@ -93,7 +93,7 @@ func TestSendMessage(t *testing.T) {
 		Data:                `{ "key": "value" }`,
 		SendPush:            ptr(true),
 		PushMessageTemplate: "push-notification-template",
-		MentionType:         MentionTypeChannel,
+		MentionType:         MentionTypeChannels,
 		MentionUserIDs:      []string{"mention-user-id"},
 		IsSilent:            ptr(true),
 		MarkAsRead:          ptr(true),

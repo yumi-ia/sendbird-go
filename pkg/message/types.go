@@ -15,9 +15,11 @@ const (
 	ChannelTypeGroup ChannelType = "group_channels"
 )
 
+type MentionType string
+
 const (
-	MentionTypeUser    string = "users"
-	MentionTypeChannel string = "channels"
+	MentionTypeUsers    MentionType = "users"
+	MentionTypeChannels MentionType = "channels"
 )
 
 const (
