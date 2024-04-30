@@ -1,7 +1,9 @@
 package user
 
+type SuperMode string
+
 const (
-	SuperModeAll      string = "all"
-	SuperModeSuper    string = "super"
-	SuperModeNonSuper string = "nonsuper"
+	SuperModeAll      SuperMode = "all"
+	SuperModeSuper    SuperMode = "super"
+	SuperModeNonSuper SuperMode = "nonsuper"
 )

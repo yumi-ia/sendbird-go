@@ -46,7 +46,7 @@ type GetGroupChannelCountRequest struct {
 	// SuperMode restricts the search scope to either Supergroup channels or
 	// non-Supergroup channels or both. Acceptable values are all, super, and
 	// nonsuper. If not specified, the default value is all.
-	SuperMode string `json:"super_mode,omitempty"`
+	SuperMode SuperMode `json:"super_mode,omitempty"`
 }
 
 type GetGroupChannelCountResponse struct {

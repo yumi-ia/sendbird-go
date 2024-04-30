@@ -35,12 +35,13 @@ type ListGroupChannelRequest struct {
 	PublicMode string
 	// SuperMod&e specifies which type of group channels to retrieve. Acceptable
 	// values are the following:
-	// - all (default): All types of group channels including Supergroup channels
-	// are returned.
-	// - super: Only Supergroup channels are returned.
-	// - nonsuper: Group channels excluding Supergroup channels are returned.
+	// - SuperModeAll (default): All types of group channels including Supergroup
+	// channels are returned.
+	// - SuperModeSuper: Only Supergroup channels are returned.
+	// - SuperModeNonSuper: Group channels excluding Supergroup channels are
+	// returned.
 	// Optional.
-	SuperMode string
+	SuperMode SuperMode
 	// CreatedAfter restricts the search scope to only retrieve group channels
 	// which have been created after the specified time, in Unix milliseconds
 	// format.
@@ -255,7 +256,7 @@ func listChannelRequestToMap(lcr ListGroupChannelRequest) map[string]string {
 	}
 
 	if lcr.SuperMode != "" {
-		m["super_mode"] = lcr.SuperMode
+		m["super_mode"] = string(lcr.SuperMode)
 	}
 
 	if lcr.CreatedAfter != nil {
