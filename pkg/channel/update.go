@@ -5,8 +5,6 @@ import (
 	"fmt"
 )
 
-// https://sendbird.com/docs/chat/platform-api/v3/channel/managing-a-channel/update-a-group-channel
-
 // UpdateGroupChannelRequest is the request to update a channel.
 type UpdateGroupChannelRequest struct {
 	// Name specifies the name of the channel or the channel topic. The length is
@@ -52,6 +50,8 @@ type UpdateGroupChannelRequest struct {
 // UpdateGroupChannelResponse is the response of the update channel request.
 type UpdateGroupChannelResponse ChannelResource
 
+// UpdateGroupChannel updates a group channel.
+// See https://sendbird.com/docs/chat/platform-api/v3/channel/managing-a-channel/update-a-group-channel
 func (c *channel) UpdateGroupChannel(ctx context.Context, channelURL string, updateChannelRequest UpdateGroupChannelRequest) (*UpdateGroupChannelResponse, error) {
 	ccr, err := c.client.Put(ctx, "/group_channels/"+channelURL, updateChannelRequest, &UpdateGroupChannelResponse{})
 	if err != nil {
