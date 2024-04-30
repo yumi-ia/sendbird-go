@@ -6,14 +6,6 @@ import (
 )
 
 const (
-	ModeUnHiddenOnly            string = "unhidden_only"
-	ModeHiddenOnly              string = "hidden_only"
-	ModeHiddenAllowAutoUnhide   string = "hidden_allow_auto_unhide"
-	ModeHiddenPreventAutoUnhide string = "hidden_prevent_auto_unhide"
-	ModeAll                     string = "all"
-)
-
-const (
 	StateJoined  string = "joined"
 	StateInvited string = "invited"
 )
@@ -27,16 +19,16 @@ type GetGroupChannelCountRequest struct {
 	// HiddenMode restricts the search scope to group channels that match a
 	// specific hidden_status and operating behavior. Acceptable values are the
 	// following:
-	// - unhidden_only (default): Specifies channels which the user joined with
-	// the unhidden status.
-	// - hidden_only: Specifies all channels which the user joined with either
+	// - ModeUnHiddenOnly (default): Specifies channels which the user joined
+	// with the unhidden status.
+	// - ModeHiddenOnly: Specifies all channels which the user joined with either
 	// the hidden_allow_auto_unhide or hidden_prevent_auto_unhide status.
-	// - hidden_allow_auto_unhide: Specifies channels which the user joined with
+	// - ModeHiddenAllowAutoUnhide: Specifies channels which the user joined with
 	// the hidden_allow_auto_unhide status.
-	// - hidden_prevent_auto_unhide: Specifies channels which the user joined
+	// - ModeHiddenPreventAutoUnhide: Specifies channels which the user joined
 	// with the hidden_prevent_auto_unhide status.
-	// - all: Specifies all channels regardless of their hidden_status.
-	HiddenMode string `json:"hidden_mode,omitempty"`
+	// - ModeAll: Specifies all channels regardless of their hidden_status.
+	HiddenMode Mode `json:"hidden_mode,omitempty"`
 	// State determines which join status to use to filter the user's group
 	// channels and count the total number. Valid values are the following:
 	// - joined: Indicates the number count of the user’s joined channels.
