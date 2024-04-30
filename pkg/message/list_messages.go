@@ -81,14 +81,14 @@ type ListMessagesRequest struct {
 	// Optional. (Default: false)
 	IncludeThreadInfo *bool
 	// IncludeReplyType specifies the type of message to include in the results.
-	// - NONE (default): All messages that are not replies. These messages may or
-	// may not have replies in its thread.
-	// - ALL: All messages including threaded and non-threaded parent messages as
-	// well as its replies.
-	// - ONLY_REPLY_TO_CHANNEL: Messages that are not threaded. Only the parent
-	// messages and replies that were sent to the channel are included.
+	// - ReplyTypeNone (default): All messages that are not replies. These
+	// messages may or may not have replies in its thread.
+	// - ReplyTypeAll: All messages including threaded and non-threaded parent
+	// messages as well as its replies.
+	// - ReplyTypeOnlyReplyToChannel: Messages that are not threaded. Only the
+	// parent messages and replies that were sent to the channel are included.
 	// Optional
-	IncludeReplyType string
+	IncludeReplyType ReplyType
 	// IncludeReaction determines whether to include reactions added to messages
 	// in the channel in the results.
 	// Optional. (Default: false)
@@ -182,7 +182,7 @@ func listMessagesRequestToMap(lmr ListMessagesRequest) map[string]string {
 	}
 
 	if lmr.IncludeReplyType != "" {
-		m["include_reply_type"] = lmr.IncludeReplyType
+		m["include_reply_type"] = string(lmr.IncludeReplyType)
 	}
 
 	if lmr.IncludeReaction != nil {

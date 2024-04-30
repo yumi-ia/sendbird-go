@@ -51,7 +51,7 @@ func TestListMessages(t *testing.T) {
 		IncludingRemoved:           ptr(true),
 		IncludeParentMessageInfo:   ptr(true),
 		IncludeThreadInfo:          ptr(true),
-		IncludeReplyType:           RelyTypeAll,
+		IncludeReplyType:           ReplyTypeAll,
 		IncludeReaction:            ptr(true),
 		IncludePollDetails:         ptr(true),
 		WithSortedMetaArray:        ptr(true),

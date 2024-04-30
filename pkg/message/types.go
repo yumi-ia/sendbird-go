@@ -30,10 +30,12 @@ const (
 	OperatorFilterNonOperator OperatorFilter = "nonoperator"
 )
 
+type ReplyType string
+
 const (
-	ReplyTypeNone               string = "NONE"
-	RelyTypeAll                 string = "ALL"
-	ReplyTypeOnlyReplyToChannel string = "ONLY_REPLY_TO_CHANNEL"
+	ReplyTypeNone               ReplyType = "NONE"
+	ReplyTypeAll                ReplyType = "ALL"
+	ReplyTypeOnlyReplyToChannel ReplyType = "ONLY_REPLY_TO_CHANNEL"
 )
 
 type User struct {
