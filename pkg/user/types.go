@@ -1,13 +1,5 @@
 package user
 
-type SuperMode string
-
-const (
-	SuperModeAll      SuperMode = "all"
-	SuperModeSuper    SuperMode = "super"
-	SuperModeNonSuper SuperMode = "nonsuper"
-)
-
 type Mode string
 
 const (
@@ -16,4 +8,19 @@ const (
 	ModeHiddenAllowAutoUnhide   Mode = "hidden_allow_auto_unhide"
 	ModeHiddenPreventAutoUnhide Mode = "hidden_prevent_auto_unhide"
 	ModeAll                     Mode = "all"
+)
+
+type State string
+
+const (
+	StateJoined  State = "joined"
+	StateInvited State = "invited"
+)
+
+type SuperMode string
+
+const (
+	SuperModeAll      SuperMode = "all"
+	SuperModeSuper    SuperMode = "super"
+	SuperModeNonSuper SuperMode = "nonsuper"
 )

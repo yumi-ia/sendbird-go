@@ -5,11 +5,6 @@ import (
 	"fmt"
 )
 
-const (
-	StateJoined  string = "joined"
-	StateInvited string = "invited"
-)
-
 // GetGroupChannelCountRequest is the request to get the number of unread
 // messages.
 type GetGroupChannelCountRequest struct {
@@ -31,10 +26,10 @@ type GetGroupChannelCountRequest struct {
 	HiddenMode Mode `json:"hidden_mode,omitempty"`
 	// State determines which join status to use to filter the user's group
 	// channels and count the total number. Valid values are the following:
-	// - joined: Indicates the number count of the user’s joined channels.
-	// - invited: Indicates the number count of channels which the user has been
-	// invited to but not joined.
-	State string `json:"state,omitempty"`
+	// - StateJoined: Indicates the number count of the user’s joined channels.
+	// - StateInvited: Indicates the number count of channels which the user has
+	// been invited to but not joined.
+	State State `json:"state,omitempty"`
 	// SuperMode restricts the search scope to either Supergroup channels or
 	// non-Supergroup channels or both. Acceptable values are all, super, and
 	// nonsuper. If not specified, the default value is all.
