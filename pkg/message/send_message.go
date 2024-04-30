@@ -6,15 +6,41 @@ import (
 	"fmt"
 )
 
+// File is a fiel to send.
+type File struct {
+	// URL specifies the URL of the file hosted on the server of your own or
+	// other third-party companies.
+	URL string `json:"url"`
+	// FileName specifies the name of the file. The file_name can be any string
+	// you've set to this property. If no file_name value is supplied, the
+	// files.file_name property defaults to an empty string.
+	FileName string `json:"file_name,omitempty"`
+	// FileSize specifies the size of the file in bytes. The file_size can be set
+	// to be any int you've set to this property. If no files.file_size value is
+	// supplied, it defaults to 0. File size is stored in bytes.
+	FileSize int `json:"file_size,omitempty"`
+	// FileType specifies the type of the file. The file_type can be set to any
+	// string you've set to this property. If no files.file_type value is
+	// supplied, it defaults to an empty string.
+	FileType string `json:"file_type,omitempty"`
+}
+
 // SendMessageRequest is the request to send a message.
 type SendMessageRequest struct {
 	// MessageType specifies the type of the message.
 	MessageType MessageType `json:"message_type"`
 	// UserID specifies the user ID of the sender.
 	UserID string `json:"user_id"`
-	// Message specifies the content of the message.
-	Message string `json:"message"`
 
+	// Message specifies the content of the message.
+	Message string `json:"message,omitempty"`
+	// Files specifies the data of files to upload to the Sendbird server by
+	// their location.
+	Files []File `json:"files,omitempty"`
+
+	// Thumbnails specifies an array of external thumbnail image URLs to store a
+	// reference to those images in the Sendbird server.
+	Thumbnails []string `json:"thumbnails,omitempty"`
 	// CustomType specifies a custom message type used for message grouping. The
 	// length is limited to 128 characters.
 	CustomType string `json:"custom_type,omitempty"`
@@ -97,8 +123,19 @@ func (smr *SendMessageRequest) Validate() error {
 		return errors.New("message type is required")
 	case smr.UserID == "":
 		return errors.New("user ID is required")
-	case smr.Message == "":
-		return errors.New("message is required")
+	}
+
+	switch {
+	case smr.MessageType == MessageTypeText && smr.Message == "":
+		return errors.New("message is required for text message")
+	case smr.MessageType == MessageTypeFile && len(smr.Files) == 0:
+		return errors.New("files are required for file message")
+	case smr.MessageType == MessageTypeFile:
+		for _, file := range smr.Files {
+			if file.URL == "" {
+				return errors.New("file URL is required")
+			}
+		}
 	}
 
 	return nil
