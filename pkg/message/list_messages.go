@@ -57,7 +57,7 @@ type ListMessagesRequest struct {
 	// MessageType specifies a message type to retrieve. Acceptable values are
 	// MESG, FILE, and ADMM. If not specified, all messages are retrieved.
 	// Optional.
-	MessageType string
+	MessageType MessageType
 	// CustomTypes specifies a list of one or more custom message types to
 	// retrieve. The value set to this parameter can serve as a filter as
 	// follows:
@@ -163,7 +163,7 @@ func listMessagesRequestToMap(lmr ListMessagesRequest) map[string]string {
 	}
 
 	if lmr.MessageType != "" {
-		m["message_type"] = lmr.MessageType
+		m["message_type"] = string(lmr.MessageType)
 	}
 
 	if len(lmr.CustomTypes) > 0 {

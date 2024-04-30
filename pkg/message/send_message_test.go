@@ -21,6 +21,64 @@ func TestPtr(t *testing.T) {
 	assert.Equal(t, "foo", *ptr("foo"))
 }
 
+func TestValidateSMR(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name      string
+		smr       SendMessageRequest
+		assertErr assert.ErrorAssertionFunc
+	}{
+		{
+			name:      "empty",
+			smr:       SendMessageRequest{},
+			assertErr: assert.Error,
+		},
+		{
+			name: "Without Message Type",
+			smr: SendMessageRequest{
+				UserID:  "42",
+				Message: "Hello, World!",
+			},
+			assertErr: assert.Error,
+		},
+		{
+			name: "Without user id",
+			smr: SendMessageRequest{
+				MessageType: MessageTypeText,
+				Message:     "Hello, World!",
+			},
+			assertErr: assert.Error,
+		},
+		{
+			name: "Without message",
+			smr: SendMessageRequest{
+				MessageType: MessageTypeText,
+				UserID:      "42",
+			},
+			assertErr: assert.Error,
+		},
+		{
+			name: "Valid",
+			smr: SendMessageRequest{
+				MessageType: MessageTypeText,
+				UserID:      "42",
+				Message:     "Hello, World!",
+			},
+			assertErr: assert.NoError,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			t.Parallel()
+
+			err := test.smr.Validate()
+			test.assertErr(t, err)
+		})
+	}
+}
+
 func TestSendMessage(t *testing.T) {
 	t.Parallel()
 

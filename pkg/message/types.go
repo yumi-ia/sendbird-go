@@ -1,9 +1,11 @@
 package message
 
+type MessageType string
+
 const (
-	MessageTypeText         string = "MESG"
-	MessageTypeFile         string = "FILE"
-	MessageTypeAdminMessage string = "ADMM"
+	MessageTypeText         MessageType = "MESG"
+	MessageTypeFile         MessageType = "FILE"
+	MessageTypeAdminMessage MessageType = "ADMM"
 )
 
 const (

@@ -2,14 +2,14 @@ package message
 
 import (
 	"context"
+	"errors"
 	"fmt"
 )
 
 // SendMessageRequest is the request to send a message.
 type SendMessageRequest struct {
-	// MessageType specifies the type of the message. The value of MESG
-	// represents a text message.
-	MessageType string `json:"message_type"`
+	// MessageType specifies the type of the message.
+	MessageType MessageType `json:"message_type"`
 	// UserID specifies the user ID of the sender.
 	UserID string `json:"user_id"`
 	// Message specifies the content of the message.
@@ -91,6 +91,19 @@ type SendMessageRequest struct {
 	Volume float32 `json:"volume,omitempty"`
 }
 
+func (smr *SendMessageRequest) Validate() error {
+	switch {
+	case smr.MessageType == "":
+		return errors.New("message type is required")
+	case smr.UserID == "":
+		return errors.New("user ID is required")
+	case smr.Message == "":
+		return errors.New("message is required")
+	}
+
+	return nil
+}
+
 // SendMessageResponse is the response to send a message.
 type SendMessageResponse MessageResource
 
@@ -100,6 +113,10 @@ type SendMessageResponse MessageResource
 // the URL of the channel.
 // See https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/send-a-message
 func (m *message) SendMessage(ctx context.Context, channelType, channelURL string, sendMessageRequest SendMessageRequest) (*SendMessageResponse, error) {
+	if err := sendMessageRequest.Validate(); err != nil {
+		return nil, fmt.Errorf("failed to validate send message request: %w", err)
+	}
+
 	path := fmt.Sprintf("/%s/%s/messages", channelType, channelURL)
 
 	smr, err := m.client.Post(ctx, path, sendMessageRequest, &SendMessageResponse{})
