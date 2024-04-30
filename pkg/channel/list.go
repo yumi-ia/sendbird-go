@@ -28,11 +28,11 @@ type ListGroupChannelRequest struct {
 	DistinctMode string
 	// PublicMode restricts the search scope to only retrieve either public or
 	// private group channels. Acceptable values are the following:
-	// - all (default): All group channels are returned.
-	// - private: All private group channels are returned.
-	// - public: All public group channels are returned.
+	// - PublicModeAll (default): All group channels are returned.
+	// - PublicModeNonPublic: All private group channels are returned.
+	// - PublicModePublic: All public group channels are returned.
 	// Optional.
-	PublicMode string
+	PublicMode PublicMode
 	// SuperMod&e specifies which type of group channels to retrieve. Acceptable
 	// values are the following:
 	// - SuperModeAll (default): All types of group channels including Supergroup
@@ -252,7 +252,7 @@ func listChannelRequestToMap(lcr ListGroupChannelRequest) map[string]string {
 	}
 
 	if lcr.PublicMode != "" {
-		m["public_mode"] = lcr.PublicMode
+		m["public_mode"] = string(lcr.PublicMode)
 	}
 
 	if lcr.SuperMode != "" {

@@ -8,10 +8,12 @@ const (
 	DistincModeNonDistinct string = "nondistinct"
 )
 
+type PublicMode string
+
 const (
-	PublicModeAll       string = "all"
-	PublicModePublic    string = "public"
-	PublicModeNonPublic string = "private"
+	PublicModeAll     PublicMode = "all"
+	PublicModePublic  PublicMode = "public"
+	PublicModePrivate PublicMode = "private"
 )
 
 type SuperMode string
