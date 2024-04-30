@@ -13,6 +13,7 @@ type Channel interface {
 	CreateGroupChannel(ctx context.Context, createChannelRequest CreateGroupChannelRequest) (*CreateGroupChannelResponse, error)
 	UpdateGroupChannel(ctx context.Context, channelURL string, updateChannelRequest UpdateGroupChannelRequest) (*UpdateGroupChannelResponse, error)
 	ListGroupChannels(ctx context.Context, listChannelRequest ListGroupChannelRequest) (*ListGroupChannelResponse, error)
+	MarkAsRead(ctx context.Context, channelURL, userID string) error
 }
 
 type channel struct {
