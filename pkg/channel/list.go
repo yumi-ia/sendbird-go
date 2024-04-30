@@ -21,11 +21,12 @@ type ListGroupChannelRequest struct {
 	Limit *int
 	// DistinctMode restricts the search scope to only retrieve distinct or
 	// nondistinct group channels. Acceptable values are the following:
-	// - all (default): All group channels are returned.
-	// - distinct: Only distinct group channels are returned.
-	// - nondistinct: Only group channels that aren't distinct are returned.
+	// - DistinctModeAll (default): All group channels are returned.
+	// - DistinctModeDistinct: Only distinct group channels are returned.
+	// - DistinctModeNonDistinct: Only group channels that aren't distinct are
+	// returned.
 	// Optional.
-	DistinctMode string
+	DistinctMode DistinctMode
 	// PublicMode restricts the search scope to only retrieve either public or
 	// private group channels. Acceptable values are the following:
 	// - PublicModeAll (default): All group channels are returned.
@@ -249,7 +250,7 @@ func listChannelRequestToMap(lcr ListGroupChannelRequest) map[string]string {
 	}
 
 	if lcr.DistinctMode != "" {
-		m["distinct_mode"] = lcr.DistinctMode
+		m["distinct_mode"] = string(lcr.DistinctMode)
 	}
 
 	if lcr.PublicMode != "" {

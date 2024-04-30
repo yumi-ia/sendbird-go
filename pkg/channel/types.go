@@ -2,10 +2,12 @@ package channel
 
 import "github.com/tomMoulard/sendbird-go/pkg/message"
 
+type DistinctMode string
+
 const (
-	DistincModeAll         string = "all"
-	DistincModeDistinct    string = "distinct"
-	DistincModeNonDistinct string = "nondistinct"
+	DistinctModeAll         DistinctMode = "all"
+	DistinctModeDistinct    DistinctMode = "distinct"
+	DistinctModeNonDistinct DistinctMode = "nondistinct"
 )
 
 type PublicMode string
