@@ -8,9 +8,11 @@ const (
 	MessageTypeAdminMessage MessageType = "ADMM"
 )
 
+type ChannelType string
+
 const (
-	ChannelTypeOpen  string = "open_channels"
-	ChannelTypeGroup string = "group_channels"
+	ChannelTypeOpen  ChannelType = "open_channels"
+	ChannelTypeGroup ChannelType = "group_channels"
 )
 
 const (

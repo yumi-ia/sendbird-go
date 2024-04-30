@@ -211,7 +211,7 @@ func listMessagesRequestToMap(lmr ListMessagesRequest) map[string]string {
 
 // ListMessages retrieves a list of messages in a channel.
 // See https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/list-messages
-func (m *message) ListMessages(ctx context.Context, channelType, channelURL string, listMessagesRequest ListMessagesRequest) (*ListMessagesResponse, error) {
+func (m *message) ListMessages(ctx context.Context, channelType ChannelType, channelURL string, listMessagesRequest ListMessagesRequest) (*ListMessagesResponse, error) {
 	u, err := url.Parse(fmt.Sprintf("/%s/%s/messages", channelType, channelURL))
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse URL: %w", err)

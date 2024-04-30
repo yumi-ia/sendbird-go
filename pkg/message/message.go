@@ -10,8 +10,8 @@ import (
 )
 
 type Message interface {
-	SendMessage(ctx context.Context, channelType, channelURL string, sendMessageRequest SendMessageRequest) (*SendMessageResponse, error)
-	ListMessages(ctx context.Context, channelType, channelURL string, listMessagesRequest ListMessagesRequest) (*ListMessagesResponse, error)
+	SendMessage(ctx context.Context, channelType ChannelType, channelURL string, sendMessageRequest SendMessageRequest) (*SendMessageResponse, error)
+	ListMessages(ctx context.Context, channelType ChannelType, channelURL string, listMessagesRequest ListMessagesRequest) (*ListMessagesResponse, error)
 }
 
 type message struct {
