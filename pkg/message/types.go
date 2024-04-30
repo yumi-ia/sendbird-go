@@ -22,10 +22,12 @@ const (
 	MentionTypeChannels MentionType = "channels"
 )
 
+type OperatorFilter string
+
 const (
-	OperatorFilterAll         string = "all"
-	OperatorFilterOperator    string = "operator"
-	OperatorFilterNonOperator string = "nonoperator"
+	OperatorFilterAll         OperatorFilter = "all"
+	OperatorFilterOperator    OperatorFilter = "operator"
+	OperatorFilterNonOperator OperatorFilter = "nonoperator"
 )
 
 const (

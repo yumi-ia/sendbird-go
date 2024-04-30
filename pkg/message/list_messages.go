@@ -50,10 +50,9 @@ type ListMessagesRequest struct {
 	// Optional.
 	SenderIDs []string
 	// OperatorFilter sestricts the search scope to only retrieve messages sent
-	// by operators or non-operator users of the channel. Acceptable values are
-	// all, operator, and nonoperator.
-	// Optional. (Default: all)
-	OperatorFilter string
+	// by operators or non-operator users of the channel
+	// Optional. (Default: OperatorFilterAll)
+	OperatorFilter OperatorFilter
 	// MessageType specifies a message type to retrieve. Acceptable values are
 	// MESG, FILE, and ADMM. If not specified, all messages are retrieved.
 	// Optional.
@@ -159,7 +158,7 @@ func listMessagesRequestToMap(lmr ListMessagesRequest) map[string]string {
 	}
 
 	if lmr.OperatorFilter != "" {
-		m["operator_filter"] = lmr.OperatorFilter
+		m["operator_filter"] = string(lmr.OperatorFilter)
 	}
 
 	if lmr.MessageType != "" {
