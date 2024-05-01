@@ -14,9 +14,13 @@ import (
 
 // Client is the interface for the client of the sendbird API.
 type Client interface {
+	// Get sends a GET request to the sendbird API.
 	Get(ctx context.Context, path string, obj any, resp any) (any, error)
+	// Post sends a POST request to the sendbird API.
 	Post(ctx context.Context, path string, obj any, resp any) (any, error)
+	// Put sends a PUT request to the sendbird API.
 	Put(ctx context.Context, path string, obj any, resp any) (any, error)
+	// Delete sends a DELETE request to the sendbird API.
 	Delete(ctx context.Context, path string, obj any, resp any) (any, error)
 }
 

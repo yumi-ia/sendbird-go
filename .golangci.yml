@@ -98,6 +98,9 @@ issues:
       linters:
         - funlen
         - gosec
+    - path: '(.+)example_test.go'
+      linters:
+        - testableexamples
     - path: 'pkg/client/errors_test.go'
       text: 'tests: ExampleHandleError refers to unknown identifier: HandleError'
       linters:

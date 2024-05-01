@@ -145,9 +145,6 @@ func (smr *SendMessageRequest) Validate() error {
 type SendMessageResponse MessageResource
 
 // SendMessage sends a message to a channel.
-// channelType specifies the type of the channel, one of
-// messages.ChannelTypeOpen, or messages.ChannelTypeGroup. channelURL specifies
-// the URL of the channel.
 // See https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/send-a-message
 func (m *message) SendMessage(ctx context.Context, channelType ChannelType, channelURL string, sendMessageRequest SendMessageRequest) (*SendMessageResponse, error) {
 	if err := sendMessageRequest.Validate(); err != nil {

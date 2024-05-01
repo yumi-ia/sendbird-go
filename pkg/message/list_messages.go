@@ -53,8 +53,8 @@ type ListMessagesRequest struct {
 	// by operators or non-operator users of the channel
 	// Optional. (Default: OperatorFilterAll)
 	OperatorFilter OperatorFilter
-	// MessageType specifies a message type to retrieve. Acceptable values are
-	// MESG, FILE, and ADMM. If not specified, all messages are retrieved.
+	// MessageType specifies a message type to retrieve. If not specified, all
+	// messages are retrieved.
 	// Optional.
 	MessageType MessageType
 	// CustomTypes specifies a list of one or more custom message types to
