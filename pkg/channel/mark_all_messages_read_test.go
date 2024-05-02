@@ -5,12 +5,13 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+	"github.com/tomMoulard/sendbird-go/pkg/client"
 )
 
 func TestMarkAsRead(t *testing.T) {
 	t.Parallel()
 
-	client := newClientMock(t)
+	client := client.NewClientMock(t)
 	channel := NewChannel(client)
 
 	client.OnPut("/group_channels/channel-url/messages/mark_as_read", markAsReadRequest{UserID: "user-id"}, nil).Return(nil, nil)

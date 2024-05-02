@@ -6,12 +6,13 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/tomMoulard/sendbird-go/pkg/client"
 )
 
 func TestCreateUser(t *testing.T) {
 	t.Parallel()
 
-	client := newClientMock(t)
+	client := client.NewClientMock(t)
 	user := NewUser(client)
 
 	createUserRequest := CreateUserRequest{

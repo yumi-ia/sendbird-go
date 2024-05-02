@@ -5,12 +5,13 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+	"github.com/tomMoulard/sendbird-go/pkg/client"
 )
 
 func TestStartTyping(t *testing.T) {
 	t.Parallel()
 
-	client := newClientMock(t)
+	client := client.NewClientMock(t)
 	channel := NewChannel(client)
 
 	client.OnPost("/group_channels/channel-url/typing", typingRequest{UserIDs: []string{"user-id"}}, nil).Return(nil, nil)
@@ -22,7 +23,7 @@ func TestStartTyping(t *testing.T) {
 func TestStopTyping(t *testing.T) {
 	t.Parallel()
 
-	client := newClientMock(t)
+	client := client.NewClientMock(t)
 	channel := NewChannel(client)
 
 	client.OnDelete("/group_channels/channel-url/typing", typingRequest{UserIDs: []string{"user-id"}}, nil).Return(nil, nil)

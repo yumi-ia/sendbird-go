@@ -6,6 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/tomMoulard/sendbird-go/pkg/client"
 )
 
 func ptr[T any](t T) *T {
@@ -166,7 +167,7 @@ func TestSendMessage(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
 
-			client := newClientMock(t)
+			client := client.NewClientMock(t)
 			message := NewMessage(client)
 			client.OnPost("/group_channels/url/messages", test.smrq, &SendMessageResponse{}).Return(&test.smrp, nil)
 

@@ -6,12 +6,13 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/tomMoulard/sendbird-go/pkg/client"
 )
 
 func TestUpdateGroupChannel(t *testing.T) {
 	t.Parallel()
 
-	client := newClientMock(t)
+	client := client.NewClientMock(t)
 	channel := NewChannel(client)
 
 	updateChannelRequest := UpdateGroupChannelRequest{
