@@ -12,9 +12,6 @@ import (
 func TestCreateGroupChannel(t *testing.T) {
 	t.Parallel()
 
-	client := client.NewClientMock(t)
-	channel := NewChannel(client)
-
 	createChannelRequest := CreateGroupChannelRequest{
 		UserIDs:                []string{"42", "43"},
 		Name:                   "name",
@@ -37,7 +34,10 @@ func TestCreateGroupChannel(t *testing.T) {
 		Name: "name",
 	}
 
-	client.OnPost("/group_channels", createChannelRequest, &CreateGroupChannelResponse{}).Return(createChannelResponse, nil)
+	client := client.NewClientMock(t).
+		OnPost("/group_channels", createChannelRequest, &CreateGroupChannelResponse{}).TypedReturns(createChannelResponse, nil).Once().
+		Parent
+	channel := NewChannel(client)
 
 	cur, err := channel.CreateGroupChannel(context.Background(), createChannelRequest)
 	require.NoError(t, err)

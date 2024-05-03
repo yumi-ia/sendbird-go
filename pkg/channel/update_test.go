@@ -12,9 +12,6 @@ import (
 func TestUpdateGroupChannel(t *testing.T) {
 	t.Parallel()
 
-	client := client.NewClientMock(t)
-	channel := NewChannel(client)
-
 	updateChannelRequest := UpdateGroupChannelRequest{
 		Name:        "channel-name",
 		CoverURL:    "cover-url",
@@ -31,7 +28,10 @@ func TestUpdateGroupChannel(t *testing.T) {
 		Name: "channel-name",
 	}
 
-	client.OnPut("/group_channels/channel-url", updateChannelRequest, &UpdateGroupChannelResponse{}).Return(updateChannelResponse, nil)
+	client := client.NewClientMock(t).
+		OnPut("/group_channels/channel-url", updateChannelRequest, &UpdateGroupChannelResponse{}).TypedReturns(updateChannelResponse, nil).Once().
+		Parent
+	channel := NewChannel(client)
 
 	cur, err := channel.UpdateGroupChannel(context.Background(), "channel-url", updateChannelRequest)
 	require.NoError(t, err)

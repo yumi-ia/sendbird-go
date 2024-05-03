@@ -167,9 +167,10 @@ func TestSendMessage(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
 
-			client := client.NewClientMock(t)
+			client := client.NewClientMock(t).
+				OnPost("/group_channels/url/messages", test.smrq, &SendMessageResponse{}).TypedReturns(&test.smrp, nil).Once().
+				Parent
 			message := NewMessage(client)
-			client.OnPost("/group_channels/url/messages", test.smrq, &SendMessageResponse{}).Return(&test.smrp, nil)
 
 			cur, err := message.SendMessage(context.Background(), ChannelTypeGroup, "url", test.smrq)
 			require.NoError(t, err)

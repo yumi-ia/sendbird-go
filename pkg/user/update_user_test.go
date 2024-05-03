@@ -12,9 +12,6 @@ import (
 func TestUpdateUser(t *testing.T) {
 	t.Parallel()
 
-	client := client.NewClientMock(t)
-	user := NewUser(client)
-
 	updateUserRequest := UpdateUserRequest{
 		Nickname:                "nickname",
 		ProfileURL:              "profile-url",
@@ -45,7 +42,10 @@ func TestUpdateUser(t *testing.T) {
 		},
 	}
 
-	client.OnPut("/users/42", updateUserRequest, &UpdateUserResponse{}).Return(updateUserResponse, nil)
+	client := client.NewClientMock(t).
+		OnPut("/users/42", updateUserRequest, &UpdateUserResponse{}).TypedReturns(updateUserResponse, nil).Once().
+		Parent
+	user := NewUser(client)
 
 	cur, err := user.UpdateUser(context.Background(), "42", updateUserRequest)
 	require.NoError(t, err)

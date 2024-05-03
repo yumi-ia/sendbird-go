@@ -12,9 +12,6 @@ import (
 func TestGetUnreadMessagesCount(t *testing.T) {
 	t.Parallel()
 
-	client := client.NewClientMock(t)
-	user := NewUser(client)
-
 	getUnreadMessagesCountRequest := GetUnreadMessagesCountRequest{
 		CustomTypes: []string{"custom-type"},
 		SuperMode:   SuperModeSuper,
@@ -24,7 +21,10 @@ func TestGetUnreadMessagesCount(t *testing.T) {
 		UnreadCount: 42,
 	}
 
-	client.OnGet("/users/42/unread_message_count", getUnreadMessagesCountRequest, &GetUnreadMessagesCountResponse{}).Return(getUnreadMessagesCountResponse, nil)
+	client := client.NewClientMock(t).
+		OnGet("/users/42/unread_message_count", getUnreadMessagesCountRequest, &GetUnreadMessagesCountResponse{}).TypedReturns(getUnreadMessagesCountResponse, nil).Once().
+		Parent
+	user := NewUser(client)
 
 	cur, err := user.GetUnreadMessagesCount(context.Background(), "42", getUnreadMessagesCountRequest)
 	require.NoError(t, err)

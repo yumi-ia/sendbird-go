@@ -12,9 +12,6 @@ import (
 func TestGetSessionToken(t *testing.T) {
 	t.Parallel()
 
-	client := client.NewClientMock(t)
-	user := NewUser(client)
-
 	getSessionTokenRequest := GetSessionTokenRequest{
 		ExpiresAt: 0,
 	}
@@ -24,7 +21,10 @@ func TestGetSessionToken(t *testing.T) {
 		ExpiresAt: 0,
 	}
 
-	client.OnPost("/users/42/token", getSessionTokenRequest, &GetSessionTokenResponse{}).Return(getSessionTokenResponse, nil)
+	client := client.NewClientMock(t).
+		OnPost("/users/42/token", getSessionTokenRequest, &GetSessionTokenResponse{}).TypedReturns(getSessionTokenResponse, nil).Once().
+		Parent
+	user := NewUser(client)
 
 	cur, err := user.GetSessionToken(context.Background(), "42", getSessionTokenRequest)
 	require.NoError(t, err)

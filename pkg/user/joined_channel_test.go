@@ -12,9 +12,6 @@ import (
 func TestGetGroupChannelCount(t *testing.T) {
 	t.Parallel()
 
-	client := client.NewClientMock(t)
-	user := NewUser(client)
-
 	getGroupChannelCountRequest := GetGroupChannelCountRequest{
 		CustomTypes: []string{"custom-type"},
 		HiddenMode:  ModeAll,
@@ -26,7 +23,10 @@ func TestGetGroupChannelCount(t *testing.T) {
 		GroupChannelCount: 42,
 	}
 
-	client.OnGet("/users/42/group_channel_count", getGroupChannelCountRequest, &GetGroupChannelCountResponse{}).Return(getGroupChannelCountResponse, nil)
+	client := client.NewClientMock(t).
+		OnGet("/users/42/group_channel_count", getGroupChannelCountRequest, &GetGroupChannelCountResponse{}).TypedReturns(getGroupChannelCountResponse, nil).Once().
+		Parent
+	user := NewUser(client)
 
 	cur, err := user.GetGroupChannelCount(context.Background(), "42", getGroupChannelCountRequest)
 	require.NoError(t, err)

@@ -12,9 +12,6 @@ import (
 func TestCreateUser(t *testing.T) {
 	t.Parallel()
 
-	client := client.NewClientMock(t)
-	user := NewUser(client)
-
 	createUserRequest := CreateUserRequest{
 		UserID:           "user-id",
 		Nickname:         "nickname",
@@ -45,7 +42,10 @@ func TestCreateUser(t *testing.T) {
 		},
 	}
 
-	client.OnPost("/users", createUserRequest, &CreateUserResponse{}).Return(createUserResponse, nil)
+	client := client.NewClientMock(t).
+		OnPost("/users", createUserRequest, &CreateUserResponse{}).TypedReturns(createUserResponse, nil).Once().
+		Parent
+	user := NewUser(client)
 
 	cur, err := user.CreateUser(context.Background(), createUserRequest)
 	require.NoError(t, err)

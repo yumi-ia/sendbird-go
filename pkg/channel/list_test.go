@@ -25,9 +25,6 @@ func TestPtr(t *testing.T) {
 func TestListGroupChannels(t *testing.T) {
 	t.Parallel()
 
-	client := client.NewClientMock(t)
-	channel := NewChannel(client)
-
 	url := "/group_channels"
 	url += "?channel_urls=channel-url1%2Cchannel-url2"
 	url += "&created_after=43"
@@ -111,7 +108,10 @@ func TestListGroupChannels(t *testing.T) {
 		}},
 	}
 
-	client.OnGet(url, nil, &ListGroupChannelResponse{}).Return(listChannelsResponse, nil)
+	client := client.NewClientMock(t).
+		OnGet(url, nil, &ListGroupChannelResponse{}).TypedReturns(listChannelsResponse, nil).Once().
+		Parent
+	channel := NewChannel(client)
 
 	cur, err := channel.ListGroupChannels(context.Background(), listChannelsRequest)
 	require.NoError(t, err)

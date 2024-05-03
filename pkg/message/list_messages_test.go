@@ -12,9 +12,6 @@ import (
 func TestListMessages(t *testing.T) {
 	t.Parallel()
 
-	client := client.NewClientMock(t)
-	message := NewMessage(client)
-
 	url := "/group_channels/url/messages"
 	url += "?custom_types=%2A"
 	url += "&include=true"
@@ -66,7 +63,10 @@ func TestListMessages(t *testing.T) {
 		}},
 	}
 
-	client.OnGet(url, nil, &ListMessagesResponse{}).Return(listMessagesResponse, nil)
+	client := client.NewClientMock(t).
+		OnGet(url, nil, &ListMessagesResponse{}).TypedReturns(listMessagesResponse, nil).Once().
+		Parent
+	message := NewMessage(client)
 
 	cur, err := message.ListMessages(context.Background(), ChannelTypeGroup, "url", listMessagesRequest)
 	require.NoError(t, err)
