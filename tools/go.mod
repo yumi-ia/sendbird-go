@@ -9,7 +9,7 @@ require (
 	github.com/client9/misspell v0.3.4
 	github.com/golangci/golangci-lint v1.57.2
 	github.com/goreleaser/goreleaser v1.25.1
-	github.com/traefik/mocktail v0.5.1
+	github.com/traefik/mocktail v0.6.0
 	golang.org/x/vuln v1.1.0
 )
 
