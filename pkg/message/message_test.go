@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/tomMoulard/sendbird-go/pkg/message"
 )
 
@@ -30,15 +32,14 @@ func TestSendMessage(t *testing.T) {
 		Message: "hello",
 	}
 	messageMock := message.NewMessageMock(t).
-		OnSendMessage(message.ChannelTypeGroup, "channelURL", req).TypedReturns(&message.SendMessageResponse{}, nil).Once().
+		OnSendMessage(message.ChannelTypeGroup, "channelURL", req).TypedReturns(&message.SendMessageResponse{MessageID: 42}, nil).Once().
 		Parent
 
 	c := &iencli{
 		message: messageMock,
 	}
 
-	_, err := c.SendMessage(context.Background(), message.ChannelTypeGroup, "channelURL", req)
-	if err != nil {
-		t.Fatalf("failed to send message: %v", err)
-	}
+	got, err := c.SendMessage(context.Background(), message.ChannelTypeGroup, "channelURL", req)
+	require.NoError(t, err)
+	assert.Equal(t, 42, got.MessageID)
 }
