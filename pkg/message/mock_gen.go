@@ -115,6 +115,10 @@ func (_c *messageListMessagesCall) OnListMessages(channelType ChannelType, chann
 	return _c.Parent.OnListMessages(channelType, channelURL, listMessagesRequest)
 }
 
+func (_c *messageListMessagesCall) OnMigrateMessages(channelURL string, migrateMessagesRequest MigrateMessagesRequest) *messageMigrateMessagesCall {
+	return _c.Parent.OnMigrateMessages(channelURL, migrateMessagesRequest)
+}
+
 func (_c *messageListMessagesCall) OnSendMessage(channelType ChannelType, channelURL string, sendMessageRequest SendMessageRequest) *messageSendMessageCall {
 	return _c.Parent.OnSendMessage(channelType, channelURL, sendMessageRequest)
 }
@@ -123,7 +127,119 @@ func (_c *messageListMessagesCall) OnListMessagesRaw(channelType interface{}, ch
 	return _c.Parent.OnListMessagesRaw(channelType, channelURL, listMessagesRequest)
 }
 
+func (_c *messageListMessagesCall) OnMigrateMessagesRaw(channelURL interface{}, migrateMessagesRequest interface{}) *messageMigrateMessagesCall {
+	return _c.Parent.OnMigrateMessagesRaw(channelURL, migrateMessagesRequest)
+}
+
 func (_c *messageListMessagesCall) OnSendMessageRaw(channelType interface{}, channelURL interface{}, sendMessageRequest interface{}) *messageSendMessageCall {
+	return _c.Parent.OnSendMessageRaw(channelType, channelURL, sendMessageRequest)
+}
+
+func (_m *messageMock) MigrateMessages(_ context.Context, channelURL string, migrateMessagesRequest MigrateMessagesRequest) error {
+	_ret := _m.Called(channelURL, migrateMessagesRequest)
+
+	if _rf, ok := _ret.Get(0).(func(string, MigrateMessagesRequest) error); ok {
+		return _rf(channelURL, migrateMessagesRequest)
+	}
+
+	_ra0 := _ret.Error(0)
+
+	return _ra0
+}
+
+func (_m *messageMock) OnMigrateMessages(channelURL string, migrateMessagesRequest MigrateMessagesRequest) *messageMigrateMessagesCall {
+	return &messageMigrateMessagesCall{Call: _m.Mock.On("MigrateMessages", channelURL, migrateMessagesRequest), Parent: _m}
+}
+
+func (_m *messageMock) OnMigrateMessagesRaw(channelURL interface{}, migrateMessagesRequest interface{}) *messageMigrateMessagesCall {
+	return &messageMigrateMessagesCall{Call: _m.Mock.On("MigrateMessages", channelURL, migrateMessagesRequest), Parent: _m}
+}
+
+type messageMigrateMessagesCall struct {
+	*mock.Call
+	Parent *messageMock
+}
+
+func (_c *messageMigrateMessagesCall) Panic(msg string) *messageMigrateMessagesCall {
+	_c.Call = _c.Call.Panic(msg)
+	return _c
+}
+
+func (_c *messageMigrateMessagesCall) Once() *messageMigrateMessagesCall {
+	_c.Call = _c.Call.Once()
+	return _c
+}
+
+func (_c *messageMigrateMessagesCall) Twice() *messageMigrateMessagesCall {
+	_c.Call = _c.Call.Twice()
+	return _c
+}
+
+func (_c *messageMigrateMessagesCall) Times(i int) *messageMigrateMessagesCall {
+	_c.Call = _c.Call.Times(i)
+	return _c
+}
+
+func (_c *messageMigrateMessagesCall) WaitUntil(w <-chan time.Time) *messageMigrateMessagesCall {
+	_c.Call = _c.Call.WaitUntil(w)
+	return _c
+}
+
+func (_c *messageMigrateMessagesCall) After(d time.Duration) *messageMigrateMessagesCall {
+	_c.Call = _c.Call.After(d)
+	return _c
+}
+
+func (_c *messageMigrateMessagesCall) Run(fn func(args mock.Arguments)) *messageMigrateMessagesCall {
+	_c.Call = _c.Call.Run(fn)
+	return _c
+}
+
+func (_c *messageMigrateMessagesCall) Maybe() *messageMigrateMessagesCall {
+	_c.Call = _c.Call.Maybe()
+	return _c
+}
+
+func (_c *messageMigrateMessagesCall) TypedReturns(a error) *messageMigrateMessagesCall {
+	_c.Call = _c.Return(a)
+	return _c
+}
+
+func (_c *messageMigrateMessagesCall) ReturnsFn(fn func(string, MigrateMessagesRequest) error) *messageMigrateMessagesCall {
+	_c.Call = _c.Return(fn)
+	return _c
+}
+
+func (_c *messageMigrateMessagesCall) TypedRun(fn func(string, MigrateMessagesRequest)) *messageMigrateMessagesCall {
+	_c.Call = _c.Call.Run(func(args mock.Arguments) {
+		_channelURL := args.String(0)
+		_migrateMessagesRequest, _ := args.Get(1).(MigrateMessagesRequest)
+		fn(_channelURL, _migrateMessagesRequest)
+	})
+	return _c
+}
+
+func (_c *messageMigrateMessagesCall) OnListMessages(channelType ChannelType, channelURL string, listMessagesRequest ListMessagesRequest) *messageListMessagesCall {
+	return _c.Parent.OnListMessages(channelType, channelURL, listMessagesRequest)
+}
+
+func (_c *messageMigrateMessagesCall) OnMigrateMessages(channelURL string, migrateMessagesRequest MigrateMessagesRequest) *messageMigrateMessagesCall {
+	return _c.Parent.OnMigrateMessages(channelURL, migrateMessagesRequest)
+}
+
+func (_c *messageMigrateMessagesCall) OnSendMessage(channelType ChannelType, channelURL string, sendMessageRequest SendMessageRequest) *messageSendMessageCall {
+	return _c.Parent.OnSendMessage(channelType, channelURL, sendMessageRequest)
+}
+
+func (_c *messageMigrateMessagesCall) OnListMessagesRaw(channelType interface{}, channelURL interface{}, listMessagesRequest interface{}) *messageListMessagesCall {
+	return _c.Parent.OnListMessagesRaw(channelType, channelURL, listMessagesRequest)
+}
+
+func (_c *messageMigrateMessagesCall) OnMigrateMessagesRaw(channelURL interface{}, migrateMessagesRequest interface{}) *messageMigrateMessagesCall {
+	return _c.Parent.OnMigrateMessagesRaw(channelURL, migrateMessagesRequest)
+}
+
+func (_c *messageMigrateMessagesCall) OnSendMessageRaw(channelType interface{}, channelURL interface{}, sendMessageRequest interface{}) *messageSendMessageCall {
 	return _c.Parent.OnSendMessageRaw(channelType, channelURL, sendMessageRequest)
 }
 
@@ -217,6 +333,10 @@ func (_c *messageSendMessageCall) OnListMessages(channelType ChannelType, channe
 	return _c.Parent.OnListMessages(channelType, channelURL, listMessagesRequest)
 }
 
+func (_c *messageSendMessageCall) OnMigrateMessages(channelURL string, migrateMessagesRequest MigrateMessagesRequest) *messageMigrateMessagesCall {
+	return _c.Parent.OnMigrateMessages(channelURL, migrateMessagesRequest)
+}
+
 func (_c *messageSendMessageCall) OnSendMessage(channelType ChannelType, channelURL string, sendMessageRequest SendMessageRequest) *messageSendMessageCall {
 	return _c.Parent.OnSendMessage(channelType, channelURL, sendMessageRequest)
 }
@@ -225,85 +345,10 @@ func (_c *messageSendMessageCall) OnListMessagesRaw(channelType interface{}, cha
 	return _c.Parent.OnListMessagesRaw(channelType, channelURL, listMessagesRequest)
 }
 
+func (_c *messageSendMessageCall) OnMigrateMessagesRaw(channelURL interface{}, migrateMessagesRequest interface{}) *messageMigrateMessagesCall {
+	return _c.Parent.OnMigrateMessagesRaw(channelURL, migrateMessagesRequest)
+}
+
 func (_c *messageSendMessageCall) OnSendMessageRaw(channelType interface{}, channelURL interface{}, sendMessageRequest interface{}) *messageSendMessageCall {
 	return _c.Parent.OnSendMessageRaw(channelType, channelURL, sendMessageRequest)
-}
-
-
-// MigrateMessages mocks the migrateMessages method
-func (_m *messageMock) MigrateMessages(_ context.Context, channelURL string, migrateMessagesRequest MigrateMessagesRequest) error {
-	_ret := _m.Called(channelURL, migrateMessagesRequest)
-
-	if _rf, ok := _ret.Get(0).(func(string, MigrateMessagesRequest) error); ok {
-		return _rf(channelURL, migrateMessagesRequest)
-	}
-
-	return _ret.Error(0)
-}
-
-// OnMigrateMessages prepares the mock and sets expectations for the MigrateMessages method
-func (_m *messageMock) OnMigrateMessages(channelURL string, migrateMessagesRequest MigrateMessagesRequest) *messageMigrateMessagesCall {
-	return &messageMigrateMessagesCall{Call: _m.Mock.On("MigrateMessages", channelURL, migrateMessagesRequest), Parent: _m}
-}
-
-// OnMigrateMessagesRaw prepares the mock and sets expectations for the MigrateMessages method
-func (_m *messageMock) OnMigrateMessagesRaw(channelURL interface{}, migrateMessagesRequest interface{}) *messageMigrateMessagesCall {
-	return &messageMigrateMessagesCall{Call: _m.Mock.On("MigrateMessages", channelURL, migrateMessagesRequest), Parent: _m}
-}
-
-type messageMigrateMessagesCall struct {
-	*mock.Call
-	Parent *messageMock
-}
-
-// Once specifies that the mock should only return the result once
-func (_c *messageMigrateMessagesCall) Once() *messageMigrateMessagesCall {
-	_c.Call = _c.Call.Once()
-	return _c
-}
-
-// Twice specifies that the mock should only return the result twice
-func (_c *messageMigrateMessagesCall) Twice() *messageMigrateMessagesCall {
-	_c.Call = _c.Call.Twice()
-	return _c
-}
-
-// Times specifies the number of times the mock should return the result
-func (_c *messageMigrateMessagesCall) Times(i int) *messageMigrateMessagesCall {
-	_c.Call = _c.Call.Times(i)
-	return _c
-}
-
-// WaitUntil waits until the channel receives a time notification
-func (_c *messageMigrateMessagesCall) WaitUntil(w <-chan time.Time) *messageMigrateMessagesCall {
-	_c.Call = _c.Call.WaitUntil(w)
-	return _c
-}
-
-// After waits for a duration before returning the result
-func (_c *messageMigrateMessagesCall) After(d time.Duration) *messageMigrateMessagesCall {
-	_c.Call = _c.Call.After(d)
-	return _c
-}
-
-// Run custom function during the call
-func (_c *messageMigrateMessagesCall) Run(fn func(args mock.Arguments)) *messageMigrateMessagesCall {
-	_c.Call = _c.Call.Run(fn)
-	return _c
-}
-
-// Return specifies the return arguments for the mock
-func (_c *messageMigrateMessagesCall) Returns(err error) *messageMigrateMessagesCall {
-	_c.Call = _c.Call.Return(err)
-	return _c
-}
-
-// OnMigrateMessages sets the expectations for the MigrateMessages method
-func (_c *messageMigrateMessagesCall) OnMigrateMessages(channelURL string, migrateMessagesRequest MigrateMessagesRequest) *messageMigrateMessagesCall {
-	return _c.Parent.OnMigrateMessages(channelURL, migrateMessagesRequest)
-}
-
-// OnMigrateMessagesRaw sets the expectations for the MigrateMessages method
-func (_c *messageMigrateMessagesCall) OnMigrateMessagesRaw(channelURL interface{}, migrateMessagesRequest interface{}) *messageMigrateMessagesCall {
-	return _c.Parent.OnMigrateMessagesRaw(channelURL, migrateMessagesRequest)
 }

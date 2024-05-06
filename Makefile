@@ -7,7 +7,7 @@ all: mod inst gen build spell lint test
 
 .PHONY: ci
 ci: ## CI build pipeline
-ci: all check diff
+ci: all check mocktail diff
 
 .PHONY: help
 help:
@@ -41,7 +41,7 @@ gen: ## go generate
 .PHONY: mocktail
 mocktail: ## go mocktail
 	$(call print-target)
-	mocktail ./...
+	mocktail -e ./...
 
 .PHONY: build
 build: ## goreleaser build
