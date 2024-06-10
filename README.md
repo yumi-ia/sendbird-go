@@ -1,12 +1,12 @@
 # sendbird-go
 
 [![Keep a Changelog](https://img.shields.io/badge/changelog-Keep%20a%20Changelog-%23E05735)](CHANGELOG.md)
-[![GitHub Release](https://img.shields.io/github/v/release/tomMoulard/sendbird-go)](https://github.com/tomMoulard/sendbird-go/releases)
-[![Go Reference](https://pkg.go.dev/badge/github.com/tomMoulard/sendbird-go.svg)](https://pkg.go.dev/github.com/tomMoulard/sendbird-go)
+[![GitHub Release](https://img.shields.io/github/v/release/tomMoulard/sendbird-go)](https://github.com/yumi-ia/sendbird-go/releases)
+[![Go Reference](https://pkg.go.dev/badge/github.com/yumi-ia/sendbird-go.svg)](https://pkg.go.dev/github.com/yumi-ia/sendbird-go)
 [![go.mod](https://img.shields.io/github/go-mod/go-version/tomMoulard/sendbird-go)](go.mod)
 [![LICENSE](https://img.shields.io/github/license/tomMoulard/sendbird-go)](LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/tomMoulard/sendbird-go/build.yml?branch=main)](https://github.com/tomMoulard/sendbird-go/actions?query=workflow%3Abuild+branch%3Amain)
-[![Go Report Card](https://goreportcard.com/badge/github.com/tomMoulard/sendbird-go)](https://goreportcard.com/report/github.com/tomMoulard/sendbird-go)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/tomMoulard/sendbird-go/build.yml?branch=main)](https://github.com/yumi-ia/sendbird-go/actions?query=workflow%3Abuild+branch%3Amain)
+[![Go Report Card](https://goreportcard.com/badge/github.com/yumi-ia/sendbird-go)](https://goreportcard.com/report/github.com/yumi-ia/sendbird-go)
 
 Yet another go client for the [Sendbird](https://sendbird.com) chat API.
 
@@ -19,7 +19,7 @@ Yet another go client for the [Sendbird](https://sendbird.com) chat API.
 ### Installation
 
 ```bash
-go get github.com/tomMoulard/sendbird-go
+go get github.com/yumi-ia/sendbird-go
 ```
 
 ### Usage
@@ -33,8 +33,8 @@ import (
     "log"
     "os"
 
-    "github.com/tomMoulard/sendbird-go/pkg/client"
-    "github.com/tomMoulard/sendbird-go/pkg/user"
+    "github.com/yumi-ia/sendbird-go/pkg/client"
+    "github.com/yumi-ia/sendbird-go/pkg/user"
 )
 
 func main() {

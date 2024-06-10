@@ -1,8 +1,8 @@
 package message_test
 
 import (
-	"github.com/tomMoulard/sendbird-go/pkg/client"
-	"github.com/tomMoulard/sendbird-go/pkg/message"
+	"github.com/yumi-ia/sendbird-go/pkg/client"
+	"github.com/yumi-ia/sendbird-go/pkg/message"
 )
 
 func ExampleNewMessage() {

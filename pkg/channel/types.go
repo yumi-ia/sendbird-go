@@ -1,6 +1,6 @@
 package channel
 
-import "github.com/tomMoulard/sendbird-go/pkg/message"
+import "github.com/yumi-ia/sendbird-go/pkg/message"
 
 type DistinctMode string
 

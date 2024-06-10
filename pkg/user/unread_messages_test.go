@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/tomMoulard/sendbird-go/pkg/client"
+	"github.com/yumi-ia/sendbird-go/pkg/client"
 )
 
 func TestGetUnreadMessagesCount(t *testing.T) {

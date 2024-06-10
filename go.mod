@@ -1,4 +1,4 @@
-module github.com/tomMoulard/sendbird-go
+module github.com/yumi-ia/sendbird-go
 
 go 1.22.4
 

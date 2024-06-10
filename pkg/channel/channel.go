@@ -6,7 +6,7 @@ package channel
 import (
 	"context"
 
-	"github.com/tomMoulard/sendbird-go/pkg/client"
+	"github.com/yumi-ia/sendbird-go/pkg/client"
 )
 
 type Channel interface {

@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"strconv"
 
-	strconvSlice "github.com/tomMoulard/sendbird-go/pkg/utils/strconv"
+	strconvSlice "github.com/yumi-ia/sendbird-go/pkg/utils/strconv"
 )
 
 // ListMessagesRequest is the request to list messages.

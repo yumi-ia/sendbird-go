@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/tomMoulard/sendbird-go/pkg/client"
+	"github.com/yumi-ia/sendbird-go/pkg/client"
 )
 
 func ExampleNewClient() {

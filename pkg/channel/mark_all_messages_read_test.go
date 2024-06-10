@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"github.com/tomMoulard/sendbird-go/pkg/client"
+	"github.com/yumi-ia/sendbird-go/pkg/client"
 )
 
 func TestMarkAsRead(t *testing.T) {
