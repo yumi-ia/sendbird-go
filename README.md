@@ -1,11 +1,11 @@
 # sendbird-go
 
 [![Keep a Changelog](https://img.shields.io/badge/changelog-Keep%20a%20Changelog-%23E05735)](CHANGELOG.md)
-[![GitHub Release](https://img.shields.io/github/v/release/tomMoulard/sendbird-go)](https://github.com/yumi-ia/sendbird-go/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/yumi-ia/sendbird-go)](https://github.com/yumi-ia/sendbird-go/releases)
 [![Go Reference](https://pkg.go.dev/badge/github.com/yumi-ia/sendbird-go.svg)](https://pkg.go.dev/github.com/yumi-ia/sendbird-go)
-[![go.mod](https://img.shields.io/github/go-mod/go-version/tomMoulard/sendbird-go)](go.mod)
-[![LICENSE](https://img.shields.io/github/license/tomMoulard/sendbird-go)](LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/tomMoulard/sendbird-go/build.yml?branch=main)](https://github.com/yumi-ia/sendbird-go/actions?query=workflow%3Abuild+branch%3Amain)
+[![go.mod](https://img.shields.io/github/go-mod/go-version/yumi-ia/sendbird-go)](go.mod)
+[![LICENSE](https://img.shields.io/github/license/yumi-ia/sendbird-go)](LICENSE)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/yumi-ia/sendbird-go/build.yml?branch=main)](https://github.com/yumi-ia/sendbird-go/actions?query=workflow%3Abuild+branch%3Amain)
 [![Go Report Card](https://goreportcard.com/badge/github.com/yumi-ia/sendbird-go)](https://goreportcard.com/report/github.com/yumi-ia/sendbird-go)
 
 Yet another go client for the [Sendbird](https://sendbird.com) chat API.
